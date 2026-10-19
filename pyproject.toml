@@ -1,0 +1,9 @@
+[project]
+name = "eloscope"
+version = "1.0.0"
+description = "What really makes chess players win? An analysis of Lichess games."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

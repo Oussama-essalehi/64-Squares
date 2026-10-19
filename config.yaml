@@ -1,0 +1,40 @@
+# 64 Squares / EloScope - pipeline configuration
+
+source:
+  month: "2026-09"                       # most recent complete month at build time
+  url_template: "https://database.lichess.org/standard/lichess_db_standard_rated_{month}.pgn.zst"
+  counts_url: "https://database.lichess.org/standard/counts.txt"
+  openings_url_template: "https://raw.githubusercontent.com/lichess-org/chess-openings/master/{part}.tsv"
+
+sampling:
+  sample_size: 2000000                   # target number of sampled games (Bernoulli, expected value)
+  seed: 42
+  batch_size: 100000                     # sampled games per Parquet batch / checkpoint
+  read_size_mb: 16                       # compressed bytes read per network call
+
+cleaning:
+  min_plies: 10
+  rating_min: 400
+  rating_max: 3200
+  keep_terminations: ["Normal", "Time forfeit"]
+  elo_bands:                             # [label, lower bound inclusive, upper bound exclusive]
+    - ["< 1200", 0, 1200]
+    - ["1200-1599", 1200, 1600]
+    - ["1600-1999", 1600, 2000]
+    - ["2000+", 2000, 10000]
+  rating_gap_bucket: 50
+  rating_gap_cap: 600
+  opening_moves: 10                      # moves per side used for the clock features
+
+analysis:
+  min_games: 1000                        # minimum games per group for any rate shown
+  top_openings: 10
+  confidence: 0.95
+
+paths:
+  raw: data/raw
+  sample: data/sample
+  processed: data/processed
+  gold: data/gold
+  duckdb: data/eloscope.duckdb
+  figures: reports/figures
