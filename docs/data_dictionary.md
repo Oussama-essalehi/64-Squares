@@ -83,7 +83,7 @@ Built by `sql/01_schema.sql`; views in `sql/02_views.sql`.
 
 UTF-8, comma separator, `.` decimal separator, ISO dates (`YYYY-MM-DD`), booleans as 0/1.
 `manifest.json` lists row counts and sizes. Files above 50 MB (only `fact_games.csv`) are
-git-ignored and regenerated with `python run.py model export`.
+git-ignored and rebuilt by `python run.py model export`.
 
 | File | Grain | Notes |
 |---|---|---|
