@@ -1,0 +1,6 @@
+time_control,buckets,games,mean_abs_calibration_error,max_abs_gap,share_buckets_200plus_below_formula
+UltraBullet,6,9556.0,0.008,0.0191,
+Bullet,21,692041.0,0.0276,0.1257,1.0
+Blitz,23,900614.0,0.0288,0.1203,1.0
+Rapide,16,324658.0,0.0307,0.1262,1.0
+Classique,5,9227.0,0.033,0.0534,
