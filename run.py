@@ -42,10 +42,11 @@ def analyze() -> None:
 
 
 def export() -> None:
-    from eloscope import baseline, export_gold
+    from eloscope import baseline, export_gold, site
 
     export_gold.run()
     baseline.run()  # reference tables of the "Analyse mes parties" app
+    site.run()  # data of the static web dashboard
 
 
 def test() -> None:
