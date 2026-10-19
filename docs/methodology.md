@@ -118,12 +118,32 @@ duplicate game id, no orphan date. Views: `v_games` (fact + dimensions) and `v_p
 - **Opening recommendations** use the score of the side minus its Elo expected score, so that
   an opening is not credited for being played by stronger players.
 
-## 6. Quality checks
+## 6. Opening families: who chooses them
 
-- 116 unit and integration tests (`pytest`): header and clock parsing, ply count vs
+Each family is drawn at its defining position: the shortest entry of the reference dataset named
+exactly like the family. The side that played the last move of that line chose the opening (odd
+number of plies = White, even = Black): Sicilian `1. e4 c5` → Black, Italian
+`1. e4 e5 2. Nf3 Nc6 3. Bc4` → White. The rule was checked by hand on the 90 families with at
+least 2,000 games; three roots ending with a move of the other side are corrected explicitly
+(King's Indian `1. d4 Nf6 2. c4 g6`, Old Indian `1. d4 Nf6 2. c4 d6`, Rat Defense: Black).
+
+## 7. Personal analysis (app)
+
+The app downloads a player's recent rated games (Lichess API, with clocks) or reads an exported
+PGN, runs the same parser and cleaning rules, and compares the player with the baseline of the
+**same Elo band, time control and colour**, weighted by the player's own mix of games. A tip is
+shown only with at least 10 games of the player and when the gap exceeds the 95 % sampling margin
+(1.96 · √(p(1−p)/n)). The demo profile is a composite of 300 random sample games where one side
+rated 1500–1600 is renamed, so it describes no real person. Nothing is stored.
+
+## 8. Quality checks
+
+- 140 unit and integration tests (`pytest`): header and clock parsing, ply count vs
   `python-chess`, chunk-independent splitting and sampling, resume after a crash, raw-cache
   rebuild, every cleaning rule on the fixture games, time-control edge values, Elo bands and
-  gap buckets, opening families, statistical helpers, the star schema and every SQL query.
+  gap buckets, opening families, statistical helpers, the star schema and every SQL query, the
+  choosing side of openings, the personal analysis (API errors, PGN formats, noise-aware advice)
+  and the integrity of the web dashboard data.
 - **SQL vs Python cross-check** (`reports/tables/cross_check.csv`): White's score per Elo band
   recomputed in pandas from the Parquet file and the top-3 opening families of the `< 1200` and
   `2000+` bands — **6/6 identical** (e.g. White's score < 1200 = 0.515481 in both; top-3 2000+
@@ -134,7 +154,7 @@ duplicate game id, no orphan date. Views: `v_games` (fact + dimensions) and `v_p
 - Power BI: PBIR files validated against the published Microsoft JSON schemas, every field
   reference checked against the model, TMDL parsed by the Tabular Object Model serializer.
 
-## 7. Limitations
+## 9. Limitations
 
 - **One month only** (September 2026): seasonality and rating inflation over time are not
   covered.
