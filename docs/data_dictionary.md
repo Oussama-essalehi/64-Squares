@@ -91,3 +91,34 @@ git-ignored and rebuilt by `python run.py model export`.
 | `fact_games.csv` | one game | `game_key` surrogate key; no game id, no player hash |
 | `agg_opening_band_tc.csv` | opening × Elo band × time control × colour (`Blancs` / `Noirs`) | `games`, `wins`, `draws`, `losses`, `points`, `expected_points`, `lost_on_time` from the point of view of `color` |
 | `agg_time_used_band_tc.csv` | Elo band × time control × colour × 5-point bin of clock share used in 10 moves | `player_games`, `points`, `losses`, `lost_on_time` |
+
+## 5. App reference tables — `app/data/`
+
+Built by `src/eloscope/baseline.py` (`python run.py export`) from `v_player_games` (one row per
+player per game). Groups below 1,000 player-games are dropped.
+
+| File | Grain | Columns |
+|---|---|---|
+| `baseline_results.csv` | Elo band × time control × colour | `games`, `score`, `expected`, `win_rate`, `draw_rate`, `lost_on_time_rate` |
+| `baseline_time_used.csv` | time control × 5-point bin of clock share used in 10 moves | `player_games`, `score`, `lost_on_time_rate` |
+| `baseline_time_quantiles.csv` | time control × quantile (5 % … 95 %) | `share_used` |
+| `baseline_openings.csv` | Elo band × colour × opening family | `games`, `score`, `score_vs_expected` |
+| `baseline_periods.csv` | time control × period (nuit 0–5 h, matin, après-midi, soir, UTC) | `player_games`, `lost_on_time_rate`, `score` |
+| `opening_roots.csv` | opening family | `eco`, `moves` (defining line), `n_plies`, `chosen_by` (Blancs / Noirs), `fen` |
+| `demo_games.pgn` | 300 games | Anonymous composite demo profile (`tools/build_demo_pgn.py`) |
+
+## 6. Web dashboard data — `site/data/dashboard.json`
+
+Built by `src/eloscope/site.py`. Only **counts** are stored; the page sums the filtered cells and
+computes rates itself. Keys `b` = Elo band order (1–4), `t` = time-control order (1 UltraBullet …
+5 Classique).
+
+| Table | Grain | Columns |
+|---|---|---|
+| `results` | band × time control | `n` games, `ww` White wins, `d` draws, `bw` Black wins, `e` expected points (White), `lot` games lost on time |
+| `openings` | band × time control × family `f` × colour `c` | `n`, `w` wins, `d` draws, `p` points, `e` expected points (side playing the family) |
+| `calibration` | band × time control × rating-gap bucket `g` | `n`, `p` White points, `e` expected points |
+| `clock` | band × time control × 5-point bin `k` of clock share used | `n` player-games, `p` points, `lot` lost on time |
+| `activity` | band × time control × weekday `w` (1 = lundi) × hour `h` | `n`, `p` White points, `lot` |
+
+`site/boards/<family>.svg` holds the defining position of every family.

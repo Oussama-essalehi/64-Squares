@@ -27,3 +27,4 @@ powerbi/**/.pbi/cache.abf
 .cache/
 tools/TmdlValidate/bin/
 tools/TmdlValidate/obj/
+reports/one_pager.html

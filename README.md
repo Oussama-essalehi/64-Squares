@@ -5,9 +5,20 @@ Power BI, pour mesurer ce qui pèse vraiment sur le résultat : le classement, l
 gestion de la pendule ou l'ouverture.**
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB) ![DuckDB](https://img.shields.io/badge/DuckDB-SQL-FFF000)
-![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20%2F%20TMDL-F2C811) ![Tests](https://img.shields.io/badge/tests-116%20pass%C3%A9s-6D8B3A)
+![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20%2F%20TMDL-F2C811) ![Streamlit](https://img.shields.io/badge/App-Streamlit-FF4B4B) ![Tests](https://img.shields.io/badge/tests-140%20pass%C3%A9s-6D8B3A)
 
 ---
+
+## Essayer
+
+| | |
+|---|---|
+| **Tableau de bord web** — 4 pages filtrables, sans rien installer | <https://oussama-essalehi.github.io/64-Squares/> *(en ligne dès l'activation de GitHub Pages)* |
+| **Analyse mes parties** — compare tes parties Lichess avec 2 millions de parties | Application Streamlit : [lancer en local ou déployer](app/README.md) |
+| **Synthèse d'une page** (PDF) | [reports/64-squares-synthese.pdf](reports/64-squares-synthese.pdf) |
+| **Tableau de bord Power BI** | [`powerbi/EloScope.pbip`](powerbi/) |
+
+![Visite du tableau de bord web](reports/figures/demo_dashboard.gif)
 
 ## 1. La question métier
 
@@ -65,6 +76,16 @@ Part des parties de chaque tranche : **moins de 1200 Elo → 2000+** (position q
 | ![English Opening](reports/figures/openings/english-opening.svg) | ![French Defense](reports/figures/openings/french-defense.svg) | ![Caro-Kann Defense](reports/figures/openings/caro-kann-defense.svg) | ![Scandinavian Defense](reports/figures/openings/scandinavian-defense.svg) |
 | **English Opening**<br>`1. c4`<br>choix des Blancs<br>1,6 % → **4,7 %** | **French Defense**<br>`1. e4 e6`<br>choix des Noirs<br>5,0 % → **6,7 %** | **Caro-Kann Defense**<br>`1. e4 c6`<br>choix des Noirs<br>4,5 % → **6,2 %** | **Scandinavian Defense**<br>`1. e4 d5`<br>choix des Noirs<br>6,2 % → **4,2 %** |
 
+### Application « Analyse mes parties »
+
+Un pseudo Lichess (ou un fichier PGN) suffit : l'application récupère les parties récentes via
+l'API Lichess, applique les mêmes règles de nettoyage, puis compare le joueur avec les joueurs
+**du même niveau, à la même cadence et avec la même couleur** (score, défaites au temps, temps
+consommé sur 10 coups, ouvertures, heure de jeu). Un conseil n'apparaît que si l'écart dépasse la
+marge d'erreur à 95 %. Un profil de démonstration anonyme permet de l'essayer sans compte.
+
+![Application Analyse mes parties](reports/figures/app_demo.png)
+
 ### Tableau de bord Power BI
 
 | Vue d'ensemble | Explorateur d'ouvertures |
@@ -108,7 +129,7 @@ Résumé ci-dessous, détail complet dans [`docs/methodology.md`](docs/methodolo
   groupe de moins de **1 000 parties** (paramétrable).
 - **Statistiques** : intervalles de Wilson à 95 %, khi² + V de Cramér, calibration Elo avec
   erreur absolue moyenne, régression logistique (statsmodels).
-- **Contrôles** : 116 tests automatisés ; recoupement SQL ↔ Python (score des Blancs par
+- **Contrôles** : 140 tests automatisés ; recoupement SQL ↔ Python (score des Blancs par
   tranche, top-3 des ouvertures) : **6/6 identiques**.
 
 ## 5. Architecture
@@ -124,6 +145,11 @@ flowchart LR
     F --> G["Rapports<br/>figures, findings"]
     E --> H[("Gold<br/>CSV data/gold")]
     H --> I["Power BI<br/>PBIP : TMDL + PBIR<br/>4 pages"]
+    E --> J[("Comptes agrégés<br/>site/data")]
+    J --> K["Tableau de bord web<br/>GitHub Pages"]
+    E --> L[("Tables de référence<br/>app/data")]
+    M["API Lichess<br/>ou fichier PGN"] --> N["App Streamlit<br/>Analyse mes parties"]
+    L --> N
 ```
 
 ## 6. Stack technique
@@ -136,20 +162,25 @@ flowchart LR
 | Statistiques | `scipy`, `statsmodels` |
 | Visualisation | `plotly` + `kaleido` (PNG), notebook Jupyter |
 | BI | **Power BI Desktop** — projet `.pbip` : modèle TMDL, rapport PBIR, mesures DAX, thème personnalisé |
-| Qualité | `pytest` (116 tests), `ruff`, validation des schémas PBIR et du TMDL |
+| Applications | **Streamlit** + API Lichess (« Analyse mes parties ») ; site statique HTML/CSS/JS + Plotly.js publié par GitHub Actions sur GitHub Pages |
+| Qualité | `pytest` (140 tests), `ruff`, validation des schémas PBIR et du TMDL, palette vérifiée pour le daltonisme ([`docs/design.md`](docs/design.md)) |
 
 ```
 64-Squares/
 ├── config.yaml            # mois, taille d'échantillon, graine, seuils
 ├── run.py / Makefile      # ingest, clean, model, analyze, export, test, all
-├── src/eloscope/          # ingest, clean, openings, model, analyze, charts, export_gold
+├── src/eloscope/          # ingest, clean, openings, model, analyze, charts, boards, export_gold,
+│                          # baseline, player (app), site (tableau de bord web)
 ├── sql/                   # 01_schema, 02_views, 03_analysis_queries
 ├── notebooks/             # 01_exploration.ipynb (EDA, sorties enregistrées)
 ├── tests/                 # 24 parties de test + tests unitaires et d'intégration
 ├── reports/               # findings.md, figures/, tables/ (une table par requête)
 ├── powerbi/               # EloScope.pbip, modèle TMDL, rapport PBIR, theme.json, BUILD_GUIDE.md
-├── tools/                 # génération et validation du projet Power BI
-└── docs/                  # methodology.md, data_dictionary.md
+├── app/                   # application Streamlit « Analyse mes parties » + tables de référence
+├── site/                  # tableau de bord web statique (GitHub Pages)
+├── tools/                 # Power BI (génération, validation), démo, synthèse PDF, visuels du README
+├── .github/workflows/     # publication du tableau de bord web
+└── docs/                  # methodology.md, data_dictionary.md, design.md
 ```
 
 ## 7. Lancer le projet
@@ -167,6 +198,13 @@ utilisent le cache de l'échantillon et prennent **~3 minutes**. Chaque étape p
 seule (`python run.py clean`). Les images des graphiques nécessitent Chrome/Chromium pour
 `kaleido` (sinon `plotly_get_chrome`, ou `python run.py analyze` après avoir défini
 `BROWSER_PATH`).
+
+**Application et tableau de bord web** :
+
+```bash
+streamlit run app/streamlit_app.py                 # « Analyse mes parties » sur http://localhost:8501
+python -m http.server 8000 --directory site        # tableau de bord web sur http://localhost:8000
+```
 
 **Power BI** (détail dans [`powerbi/BUILD_GUIDE.md`](powerbi/BUILD_GUIDE.md)) :
 

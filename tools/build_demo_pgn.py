@@ -51,7 +51,9 @@ def main() -> None:
                 continue
             if not h.get("TimeControl", "-")[0].isdigit():
                 continue
-            sides = [s for s in ("White", "Black") if h.get(f"{s}Elo", "?").isdigit() and LOW <= int(h[f"{s}Elo"]) < HIGH]
+            sides = [
+                s for s in ("White", "Black") if h.get(f"{s}Elo", "?").isdigit() and LOW <= int(h[f"{s}Elo"]) < HIGH
+            ]
             if sides:
                 candidates.append((text, rng.choice(sides) == "White"))
     picked = rng.sample(candidates, N_GAMES)
