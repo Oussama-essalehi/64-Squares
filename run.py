@@ -42,9 +42,10 @@ def analyze() -> None:
 
 
 def export() -> None:
-    from eloscope import export_gold as step
+    from eloscope import baseline, export_gold
 
-    step.run()
+    export_gold.run()
+    baseline.run()  # reference tables of the "Analyse mes parties" app
 
 
 def test() -> None:
