@@ -111,11 +111,18 @@ def top_openings(df: pd.DataFrame, bands: list[str], top: int = 10) -> go.Figure
 
 def white_score_heatmap(df: pd.DataFrame) -> go.Figure:
     """Heatmap of White's score by Elo band (rows) and time control (columns)."""
-    pivot = df.pivot(index="elo_band", columns="time_control", values="white_score")
-    counts = df.pivot(index="elo_band", columns="time_control", values="games")
-    cell = "{v:.1%}<br><span style='font-size:10px'>n={n:,.0f}</span>"
-    text = [[cell.format(v=v, n=n).replace(",", " ") if pd.notna(v) else "n < min"
-             for v, n in zip(row_v, row_n)] for row_v, row_n in zip(pivot.values, counts.values)]  # fmt: skip
+    tc_order = [c for c in TC_COLORS if c in set(df["time_control"])]
+    band_order = [b for b in BAND_COLORS if b in set(df["elo_band"])]
+    pivot = df.pivot(index="elo_band", columns="time_control", values="white_score").reindex(
+        index=band_order, columns=tc_order
+    )
+    counts = df.pivot(index="elo_band", columns="time_control", values="games").reindex(
+        index=band_order, columns=tc_order
+    )
+    text = [
+        [f"<b>{v:.1%}</b><br>n = {n:,.0f}".replace(",", " ") if pd.notna(v) else "n < min" for v, n in zip(rv, rn)]
+        for rv, rn in zip(pivot.values, counts.values)
+    ]
     fig = go.Figure(
         go.Heatmap(
             z=pivot.values,
@@ -123,12 +130,15 @@ def white_score_heatmap(df: pd.DataFrame) -> go.Figure:
             y=pivot.index,
             text=text,
             texttemplate="%{text}",
+            textfont=dict(size=14),
             colorscale=DIVERGING,
             zmid=0.5,
             colorbar=dict(title="Score", tickformat=".0%"),
+            xgap=2,
+            ygap=2,
         )  # fmt: skip
     )
-    fig.update_layout(xaxis_title="Cadence", yaxis_title="Tranche Elo", yaxis=dict(autorange="reversed"))
+    fig.update_layout(xaxis_title="Cadence", yaxis=dict(title=dict(text="Tranche Elo", standoff=18), automargin=True))
     return _finish(
         fig,
         "Score moyen des Blancs par niveau et cadence",
@@ -166,8 +176,11 @@ def lost_on_time(df: pd.DataFrame, bands: list[str]) -> go.Figure:
             marker_line=dict(color=INK, width=0.6), text=[f"{v:.0%}" for v in sub["lost_on_time_rate"]],
             textposition="outside",
         )  # fmt: skip
+    order = [c for c in TC_COLORS if c in set(df["time_control"])]
     fig.update_layout(
-        barmode="group", yaxis=dict(title="Part des parties perdues au temps", tickformat=".0%"), xaxis_title="Cadence"
+        barmode="group",
+        yaxis=dict(title="Part des parties perdues au temps", tickformat=".0%"),
+        xaxis=dict(title="Cadence", categoryorder="array", categoryarray=order),
     )
     return _finish(
         fig, "Défaites au temps par cadence et niveau", "Part des parties terminées par une chute du drapeau"
@@ -194,8 +207,9 @@ def time_used_deciles(df: pd.DataFrame) -> go.Figure:
             x=sub["decile"], y=sub["lost_on_time_rate"], name=tc, mode="lines+markers",
             line=dict(color=color, width=2.5), showlegend=False, row=1, col=2,
         )  # fmt: skip
-    fig.update_xaxes(title="Décile de temps consommé sur les 10 premiers coups (1 = le plus rapide)", dtick=1)
+    fig.update_xaxes(title="Décile de temps consommé (1 = le plus rapide)", dtick=1)
     fig.update_yaxes(tickformat=".0%")
+    fig.update_layout(legend=dict(y=-0.2, yanchor="top"), margin=dict(b=150))
     return _finish(
         fig,
         "Trop réfléchir dans l'ouverture coûte cher",
@@ -204,30 +218,47 @@ def time_used_deciles(df: pd.DataFrame) -> go.Figure:
 
 
 def activity_heatmap(df: pd.DataFrame) -> go.Figure:
-    """Games by weekday (rows) and UTC hour (columns)."""
-    pivot = df.pivot(index="weekday", columns="hour", values="games")
+    """Average games per day by weekday (rows) and UTC hour (columns)."""
+    pivot = df.pivot(index="weekday", columns="hour", values="games_per_day")
     order = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"]
     pivot = pivot.reindex([d for d in order if d in pivot.index])
     fig = go.Figure(
         go.Heatmap(
-            z=pivot.values, x=pivot.columns, y=pivot.index, colorscale=SEQUENTIAL, colorbar=dict(title="Parties")
+            z=pivot.values,
+            x=pivot.columns,
+            y=pivot.index,
+            colorscale=SEQUENTIAL,
+            colorbar=dict(title="Parties<br>par jour"),
         )
     )
     fig.update_layout(xaxis=dict(title="Heure (UTC)", dtick=1), yaxis=dict(title="", autorange="reversed"))
-    return _finish(fig, "Quand joue-t-on ?", "Nombre de parties de l'échantillon par jour et heure (UTC)")
+    return _finish(
+        fig, "Quand joue-t-on ?", "Nombre moyen de parties de l'échantillon par jour, selon le jour et l'heure (UTC)"
+    )
 
 
 def results_by_hour(df: pd.DataFrame) -> go.Figure:
-    """Lost-on-time rate and White score by UTC hour."""
+    """Lost-on-time rate (left axis) and White score (right axis, deliberately wide range) by UTC hour."""
     fig = make_subplots(specs=[[{"secondary_y": True}]])
-    fig.add_bar(x=df["hour"], y=df["lost_on_time_rate"], name="Parties perdues au temps", marker_color=LIGHT_SQUARE,
-                marker_line=dict(color=DARK_SQUARE, width=1))  # fmt: skip
-    fig.add_scatter(x=df["hour"], y=df["white_score"], name="Score des Blancs", mode="lines+markers",
-                    line=dict(color=INK, width=2.5), secondary_y=True)  # fmt: skip
-    fig.update_yaxes(title_text="Perdues au temps", tickformat=".0%", secondary_y=False)
-    fig.update_yaxes(title_text="Score des Blancs", tickformat=".1%", secondary_y=True, showgrid=False)
-    fig.update_xaxes(title_text="Heure (UTC)", dtick=1)
-    return _finish(fig, "Résultats selon l'heure de la partie", "Toutes cadences confondues (UTC)")
+    fig.add_scatter(
+        x=df["hour"], y=df["lost_on_time_rate"], name="Parties perdues au temps", mode="lines+markers",
+        line=dict(color=RED, width=3), marker=dict(size=7),
+    )  # fmt: skip
+    fig.add_scatter(
+        x=df["hour"], y=df["white_score"], name="Score des Blancs (axe de droite)", mode="lines+markers",
+        line=dict(color=INK, width=2, dash="dot"), secondary_y=True,
+    )  # fmt: skip
+    low, high = df["lost_on_time_rate"].min(), df["lost_on_time_rate"].max()
+    pad = (high - low) * 0.6
+    fig.update_yaxes(title_text="Perdues au temps", tickformat=".0%", range=[low - pad, high + pad], secondary_y=False)
+    fig.update_yaxes(
+        title_text="Score des Blancs", tickformat=".0%", range=[0.45, 0.55], secondary_y=True, showgrid=False
+    )
+    fig.update_xaxes(title_text="Heure (UTC)", dtick=1, range=[-0.5, 23.5])
+    return _finish(
+        fig, "Résultats selon l'heure de la partie",
+        "Les défaites au temps augmentent la nuit ; le score des Blancs ne bouge pas (toutes cadences, UTC)",
+    )  # fmt: skip
 
 
 def cramers_v(df: pd.DataFrame) -> go.Figure:
