@@ -1,0 +1,57 @@
+/// Tranches Elo calculées sur la moyenne des deux joueurs.
+table dim_elo_band
+
+	column elo_band_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: elo_band_key
+
+		annotation SummarizationSetBy = User
+
+	column elo_band
+		dataType: string
+		sortByColumn: sort_order
+		summarizeBy: none
+		sourceColumn: elo_band
+
+		annotation SummarizationSetBy = User
+
+	column elo_min
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: elo_min
+
+		annotation SummarizationSetBy = User
+
+	column elo_max
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: elo_max
+
+		annotation SummarizationSetBy = User
+
+	column sort_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: sort_order
+
+		annotation SummarizationSetBy = User
+
+	partition dim_elo_band = m
+		mode: import
+		source =
+				let
+				    Folder = if Text.EndsWith(DataFolder, "\") then DataFolder else DataFolder & "\",
+				    Source = Csv.Document(File.Contents(Folder & "dim_elo_band.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"elo_band_key", Int64.Type}, {"elo_band", type text}, {"elo_min", Int64.Type}, {"elo_max", Int64.Type}, {"sort_order", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

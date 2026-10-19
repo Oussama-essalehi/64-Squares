@@ -1,0 +1,22 @@
+/// Paramètre de simulation (what-if) : nombre minimum de parties pour afficher un taux. Valeur par défaut : 1 000.
+table 'Min Parties'
+
+	column 'Min Parties'
+		dataType: int64
+		formatString: #,0
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Min Parties' = calculated
+		mode: import
+		source = GENERATESERIES ( 0, 20000, 250 )
+
+	annotation PBI_Id = 6f1d3c0e8a5b4c1f9e2d7a3b4c5d6e7f
+

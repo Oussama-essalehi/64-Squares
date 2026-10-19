@@ -1,0 +1,6 @@
+/// Dossier absolu contenant les CSV « gold » (ex. C:\Projets\64-Squares\data\gold\). À modifier dans Transformer les données > Gérer les paramètres.
+expression DataFolder = "C:\Projets\64-Squares\data\gold\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	queryGroup: Paramètres
+
+	annotation PBI_ResultType = Text
+

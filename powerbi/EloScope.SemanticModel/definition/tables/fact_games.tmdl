@@ -1,0 +1,191 @@
+/// Une ligne par partie classée nettoyée (échantillon aléatoire du mois).
+table fact_games
+
+	column game_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: game_key
+
+		annotation SummarizationSetBy = User
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = User
+
+	column hour
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: hour
+
+		annotation SummarizationSetBy = User
+
+	column opening_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: opening_key
+
+		annotation SummarizationSetBy = User
+
+	column time_control_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: time_control_key
+
+		annotation SummarizationSetBy = User
+
+	column elo_band_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: elo_band_key
+
+		annotation SummarizationSetBy = User
+
+	column white_elo
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: white_elo
+
+		annotation SummarizationSetBy = User
+
+	column black_elo
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: black_elo
+
+		annotation SummarizationSetBy = User
+
+	column avg_elo
+		dataType: double
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: avg_elo
+
+		annotation SummarizationSetBy = User
+
+	column rating_gap
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: rating_gap
+
+		annotation SummarizationSetBy = User
+
+	column rating_gap_bucket
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: rating_gap_bucket
+
+		annotation SummarizationSetBy = User
+
+	column expected_score
+		dataType: double
+		formatString: 0.000
+		isHidden
+		summarizeBy: none
+		sourceColumn: expected_score
+
+		annotation SummarizationSetBy = User
+
+	column white_score
+		dataType: double
+		formatString: 0.0
+		isHidden
+		summarizeBy: none
+		sourceColumn: white_score
+
+		annotation SummarizationSetBy = User
+
+	column winner
+		dataType: string
+		summarizeBy: none
+		sourceColumn: winner
+
+		annotation SummarizationSetBy = User
+
+	column termination
+		dataType: string
+		summarizeBy: none
+		sourceColumn: termination
+
+		annotation SummarizationSetBy = User
+
+	column lost_on_time
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: lost_on_time
+
+		annotation SummarizationSetBy = User
+
+	column time_loser
+		dataType: string
+		summarizeBy: none
+		sourceColumn: time_loser
+
+		annotation SummarizationSetBy = User
+
+	column plies
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: plies
+
+		annotation SummarizationSetBy = User
+
+	column has_clock
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: has_clock
+
+		annotation SummarizationSetBy = User
+
+	column white_time_used_10
+		dataType: double
+		formatString: 0.0 %
+		isHidden
+		summarizeBy: none
+		sourceColumn: white_time_used_10
+
+		annotation SummarizationSetBy = User
+
+	column black_time_used_10
+		dataType: double
+		formatString: 0.0 %
+		isHidden
+		summarizeBy: none
+		sourceColumn: black_time_used_10
+
+		annotation SummarizationSetBy = User
+
+	partition fact_games = m
+		mode: import
+		source =
+				let
+				    Folder = if Text.EndsWith(DataFolder, "\") then DataFolder else DataFolder & "\",
+				    Source = Csv.Document(File.Contents(Folder & "fact_games.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"game_key", Int64.Type}, {"date_key", Int64.Type}, {"hour", Int64.Type}, {"opening_key", Int64.Type}, {"time_control_key", Int64.Type}, {"elo_band_key", Int64.Type}, {"white_elo", Int64.Type}, {"black_elo", Int64.Type}, {"avg_elo", type number}, {"rating_gap", Int64.Type}, {"rating_gap_bucket", Int64.Type}, {"expected_score", type number}, {"white_score", type number}, {"winner", type text}, {"termination", type text}, {"lost_on_time", Int64.Type}, {"time_loser", type text}, {"plies", Int64.Type}, {"has_clock", Int64.Type}, {"white_time_used_10", type number}, {"black_time_used_10", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

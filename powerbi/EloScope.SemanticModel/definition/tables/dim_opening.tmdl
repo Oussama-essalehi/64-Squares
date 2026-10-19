@@ -1,0 +1,69 @@
+/// Ouvertures : code ECO, famille (avant « : ») et nom complet.
+table dim_opening
+
+	column opening_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: opening_key
+
+		annotation SummarizationSetBy = User
+
+	column eco
+		dataType: string
+		summarizeBy: none
+		sourceColumn: eco
+
+		annotation SummarizationSetBy = User
+
+	column family
+		dataType: string
+		summarizeBy: none
+		sourceColumn: family
+
+		annotation SummarizationSetBy = User
+
+	column full_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: full_name
+
+		annotation SummarizationSetBy = User
+
+	column variation
+		dataType: string
+		summarizeBy: none
+		sourceColumn: variation
+
+		annotation SummarizationSetBy = User
+
+	column in_reference
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: in_reference
+
+		annotation SummarizationSetBy = User
+
+	partition dim_opening = m
+		mode: import
+		source =
+				let
+				    Folder = if Text.EndsWith(DataFolder, "\") then DataFolder else DataFolder & "\",
+				    Source = Csv.Document(File.Contents(Folder & "dim_opening.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"opening_key", Int64.Type}, {"eco", type text}, {"family", type text}, {"full_name", type text}, {"variation", type text}, {"in_reference", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
+	hierarchy Ouverture
+
+		level Famille
+			column: family
+
+		level 'Nom complet'
+			column: full_name
+

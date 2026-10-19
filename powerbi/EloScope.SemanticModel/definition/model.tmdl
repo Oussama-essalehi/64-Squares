@@ -1,0 +1,27 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Paramètres
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DataFolder","dim_date","dim_opening","dim_time_control","dim_elo_band","fact_games","agg_opening_band_tc","agg_time_used_band_tc"]
+
+ref table _Mesures
+ref table fact_games
+ref table agg_opening_band_tc
+ref table agg_time_used_band_tc
+ref table dim_date
+ref table dim_opening
+ref table dim_time_control
+ref table dim_elo_band
+ref table 'Min Parties'
+

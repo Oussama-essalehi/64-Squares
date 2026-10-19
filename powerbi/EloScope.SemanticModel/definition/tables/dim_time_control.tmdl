@@ -1,0 +1,80 @@
+/// Cadences : base + incrément et catégorie Lichess (base + 40 × incrément).
+table dim_time_control
+
+	column time_control_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: time_control_key
+
+		annotation SummarizationSetBy = User
+
+	column time_control
+		dataType: string
+		summarizeBy: none
+		sourceColumn: time_control
+
+		annotation SummarizationSetBy = User
+
+	column category
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = User
+
+	column category_label
+		dataType: string
+		sortByColumn: category_order
+		summarizeBy: none
+		sourceColumn: category_label
+
+		annotation SummarizationSetBy = User
+
+	column category_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: category_order
+
+		annotation SummarizationSetBy = User
+
+	column base_seconds
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: base_seconds
+
+		annotation SummarizationSetBy = User
+
+	column increment_seconds
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: increment_seconds
+
+		annotation SummarizationSetBy = User
+
+	column estimated_seconds
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: estimated_seconds
+
+		annotation SummarizationSetBy = User
+
+	partition dim_time_control = m
+		mode: import
+		source =
+				let
+				    Folder = if Text.EndsWith(DataFolder, "\") then DataFolder else DataFolder & "\",
+				    Source = Csv.Document(File.Contents(Folder & "dim_time_control.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"time_control_key", Int64.Type}, {"time_control", type text}, {"category", type text}, {"category_label", type text}, {"category_order", Int64.Type}, {"base_seconds", Int64.Type}, {"increment_seconds", Int64.Type}, {"estimated_seconds", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

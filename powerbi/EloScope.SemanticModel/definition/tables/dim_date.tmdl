@@ -1,0 +1,91 @@
+/// Calendrier : un jour par ligne (table de dates marquée).
+table dim_date
+	dataCategory: Time
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = User
+
+	column date
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		isKey
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = User
+
+	column year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = User
+
+	column month
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = User
+
+	column day
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: day
+
+		annotation SummarizationSetBy = User
+
+	column weekday_num
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: weekday_num
+
+		annotation SummarizationSetBy = User
+
+	column weekday_name
+		dataType: string
+		sortByColumn: weekday_num
+		summarizeBy: none
+		sourceColumn: weekday_name
+
+		annotation SummarizationSetBy = User
+
+	column weekday_short
+		dataType: string
+		sortByColumn: weekday_num
+		summarizeBy: none
+		sourceColumn: weekday_short
+
+		annotation SummarizationSetBy = User
+
+	column is_weekend
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = User
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Folder = if Text.EndsWith(DataFolder, "\") then DataFolder else DataFolder & "\",
+				    Source = Csv.Document(File.Contents(Folder & "dim_date.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"date_key", Int64.Type}, {"date", type date}, {"year", Int64.Type}, {"month", Int64.Type}, {"day", Int64.Type}, {"weekday_num", Int64.Type}, {"weekday_name", type text}, {"weekday_short", type text}, {"is_weekend", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

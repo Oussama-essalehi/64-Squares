@@ -1,0 +1,84 @@
+/// Agrégat temps consommé sur 10 coups (tranches de 5 points de %) × tranche Elo × cadence × couleur.
+table agg_time_used_band_tc
+
+	column elo_band_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: elo_band_key
+
+		annotation SummarizationSetBy = User
+
+	column time_control_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: time_control_key
+
+		annotation SummarizationSetBy = User
+
+	column color
+		dataType: string
+		summarizeBy: none
+		sourceColumn: color
+
+		annotation SummarizationSetBy = User
+
+	column time_used_bin_pct
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: time_used_bin_pct
+
+		annotation SummarizationSetBy = User
+
+	column player_games
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: player_games
+
+		annotation SummarizationSetBy = User
+
+	column points
+		dataType: double
+		formatString: #,0.0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: points
+
+		annotation SummarizationSetBy = User
+
+	column losses
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: losses
+
+		annotation SummarizationSetBy = User
+
+	column lost_on_time
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: lost_on_time
+
+		annotation SummarizationSetBy = User
+
+	partition agg_time_used_band_tc = m
+		mode: import
+		source =
+				let
+				    Folder = if Text.EndsWith(DataFolder, "\") then DataFolder else DataFolder & "\",
+				    Source = Csv.Document(File.Contents(Folder & "agg_time_used_band_tc.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"elo_band_key", Int64.Type}, {"time_control_key", Int64.Type}, {"color", type text}, {"time_used_bin_pct", Int64.Type}, {"player_games", Int64.Type}, {"points", type number}, {"losses", Int64.Type}, {"lost_on_time", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
