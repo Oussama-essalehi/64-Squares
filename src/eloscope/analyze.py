@@ -299,7 +299,8 @@ def build_metrics(
         .to_dict()
     )
     players = con.sql(
-        "SELECT COUNT(DISTINCT h) FROM (SELECT white_hash AS h FROM fact_games UNION ALL SELECT black_hash FROM fact_games)"
+        "SELECT COUNT(DISTINCT h) FROM "
+        "(SELECT white_hash AS h FROM fact_games UNION ALL SELECT black_hash FROM fact_games)"
     ).fetchone()[0]
     report = json.loads((project_path("processed", cfg) / "cleaning_report.json").read_text(encoding="utf-8"))
     deciles = sql["q4_time_used_deciles"]

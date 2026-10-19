@@ -113,7 +113,8 @@ def white_score_heatmap(df: pd.DataFrame) -> go.Figure:
     """Heatmap of White's score by Elo band (rows) and time control (columns)."""
     pivot = df.pivot(index="elo_band", columns="time_control", values="white_score")
     counts = df.pivot(index="elo_band", columns="time_control", values="games")
-    text = [[f"{v:.1%}<br><span style='font-size:10px'>n={n:,.0f}</span>".replace(",", " ") if pd.notna(v) else "n < min"
+    cell = "{v:.1%}<br><span style='font-size:10px'>n={n:,.0f}</span>"
+    text = [[cell.format(v=v, n=n).replace(",", " ") if pd.notna(v) else "n < min"
              for v, n in zip(row_v, row_n)] for row_v, row_n in zip(pivot.values, counts.values)]  # fmt: skip
     fig = go.Figure(
         go.Heatmap(
@@ -190,8 +191,8 @@ def time_used_deciles(df: pd.DataFrame) -> go.Figure:
             col=1,
         )
         fig.add_scatter(
-            x=sub["decile"], y=sub["lost_on_time_rate"], name=tc, mode="lines+markers", line=dict(color=color, width=2.5),
-            showlegend=False, row=1, col=2,
+            x=sub["decile"], y=sub["lost_on_time_rate"], name=tc, mode="lines+markers",
+            line=dict(color=color, width=2.5), showlegend=False, row=1, col=2,
         )  # fmt: skip
     fig.update_xaxes(title="Décile de temps consommé sur les 10 premiers coups (1 = le plus rapide)", dtick=1)
     fig.update_yaxes(tickformat=".0%")
