@@ -1,0 +1,12 @@
+# Dependencies of the Streamlit app only (Streamlit Community Cloud reads this file).
+streamlit==1.50.0
+pandas==3.0.6
+numpy==2.5.4
+plotly==7.1.0
+requests==2.34.2
+pyarrow==26.0.0
+zstandard==0.25.0
+tqdm==4.70.1
+python-dotenv==1.2.4
+PyYAML==6.0.3
+chess==1.11.2

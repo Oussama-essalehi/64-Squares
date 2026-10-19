@@ -1,0 +1,14 @@
+# Theme of the "Analyse mes parties" app (chessboard chrome, see docs/design.md)
+[theme]
+base = "light"
+primaryColor = "#86562d"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f7f1e8"
+textColor = "#262421"
+font = "sans serif"
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false
