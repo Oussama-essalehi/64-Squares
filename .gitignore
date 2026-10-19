@@ -24,3 +24,6 @@ docs/PERSONAL_NOTES.md
 # Power BI local artefacts
 powerbi/**/.pbi/localSettings.json
 powerbi/**/.pbi/cache.abf
+.cache/
+tools/TmdlValidate/bin/
+tools/TmdlValidate/obj/
