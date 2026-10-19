@@ -54,6 +54,17 @@ nettoyage) — détail et sources de chaque chiffre dans [`reports/findings.md`]
 | ![Calibration Elo](reports/figures/fig04_elo_calibration.png) | ![Temps dans l'ouverture](reports/figures/fig06_time_used_deciles.png) |
 | ![Ouvertures par niveau](reports/figures/fig02_top_openings_by_band.png) | ![Score des Blancs](reports/figures/fig03_white_score_band_tc.png) |
 
+### Le répertoire en images
+
+Part des parties de chaque tranche : **moins de 1200 Elo → 2000+** (position qui définit la famille, d'après `lichess-org/chess-openings`).
+
+| | | | |
+|:-:|:-:|:-:|:-:|
+| ![Sicilian Defense](reports/figures/openings/sicilian-defense.svg) | ![Queen's Pawn Game](reports/figures/openings/queens-pawn-game.svg) | ![King's Pawn Game](reports/figures/openings/kings-pawn-game.svg) | ![Italian Game](reports/figures/openings/italian-game.svg) |
+| **Sicilian Defense**<br>`1. e4 c5`<br>choix des Noirs<br>4,8 % → **12,8 %** | **Queen's Pawn Game**<br>`1. d4`<br>choix des Blancs<br>10,7 % → **7,8 %** | **King's Pawn Game**<br>`1. e4`<br>choix des Blancs<br>7,8 % → **0,6 %** | **Italian Game**<br>`1. e4 e5 2. Nf3 Nc6 3. Bc4`<br>choix des Blancs<br>6,1 % → **1,8 %** |
+| ![English Opening](reports/figures/openings/english-opening.svg) | ![French Defense](reports/figures/openings/french-defense.svg) | ![Caro-Kann Defense](reports/figures/openings/caro-kann-defense.svg) | ![Scandinavian Defense](reports/figures/openings/scandinavian-defense.svg) |
+| **English Opening**<br>`1. c4`<br>choix des Blancs<br>1,6 % → **4,7 %** | **French Defense**<br>`1. e4 e6`<br>choix des Noirs<br>5,0 % → **6,7 %** | **Caro-Kann Defense**<br>`1. e4 c6`<br>choix des Noirs<br>4,5 % → **6,2 %** | **Scandinavian Defense**<br>`1. e4 d5`<br>choix des Noirs<br>6,2 % → **4,2 %** |
+
 ### Tableau de bord Power BI
 
 | Vue d'ensemble | Explorateur d'ouvertures |

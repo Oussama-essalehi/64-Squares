@@ -205,19 +205,19 @@ def page_openings() -> list[dict[str, Any]]:
         slicer("slicerCadence", (336, 16, 300, 64), TC, "Cadence", 2),
         slicer("slicerCouleur", (652, 16, 300, 64), column("agg_opening_band_tc", "color"), "Camp (Blancs / Noirs)", 3),
         visual(
-            "comboTopOuvertures",
-            "lineClusteredColumnComboChart",
+            "barTopOuvertures",
+            "clusteredBarChart",
             (20, 96, 740, 330),
             {
                 "Category": [projection(FAMILY, active=True), projection(FULL_NAME, active=False)],
                 "Y": [projection(measure("Nb Parties Ouverture"))],
-                "Y2": [projection(measure("Taux Victoire Ouverture"))],
             },
-            "Top 10 des ouvertures : popularité et taux de victoire",
+            "Top 10 des ouvertures les plus jouées",
             4,
+            objects={"labels": [{"properties": {"show": lit(True)}}]},
             sort=(measure("Nb Parties Ouverture"), "Descending"),
             filters=[measure_filter("filtreTop10", "Rang Ouverture", 4, 10)],
-            subtitle="Colonnes : nombre de parties ; ligne : taux de victoire du camp choisi. Explorer : famille > variante",
+            subtitle="Nombre de parties ; taux de victoire dans le tableau. Explorer : famille > variante",
         ),  # fmt: skip
         visual(
             "tableClassement",
@@ -322,17 +322,29 @@ def page_activity() -> list[dict[str, Any]]:
             subtitle="Nombre moyen de parties par jour calendaire ; couleur de fond = intensité",
         ),  # fmt: skip
         visual(
-            "comboHeure",
-            "lineClusteredColumnComboChart",
-            (20, 442, 1240, 258),
+            "lineDefaitesHeure",
+            "lineChart",
+            (20, 442, 612, 258),
             {
                 "Category": [projection(column("fact_games", "hour"))],
                 "Y": [projection(measure("% Défaites au Temps"))],
-                "Y2": [projection(measure("Score Moyen Blancs"))],
             },
-            "Score des Blancs et défaites au temps selon l'heure (UTC)",
+            "Défaites au temps selon l'heure (UTC)",
             4,
             sort=(column("fact_games", "hour"), "Ascending"),
+        ),  # fmt: skip
+        visual(
+            "lineScoreHeure",
+            "lineChart",
+            (648, 442, 612, 258),
+            {
+                "Category": [projection(column("fact_games", "hour"))],
+                "Y": [projection(measure("Score Moyen Blancs"))],
+            },
+            "Score des Blancs selon l'heure (UTC)",
+            5,
+            sort=(column("fact_games", "hour"), "Ascending"),
+            subtitle="Axe Y conseillé : 45 % à 55 %",
         ),  # fmt: skip
     ]
 

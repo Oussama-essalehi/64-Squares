@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
-  "name": "comboHeure",
+  "name": "lineDefaitesHeure",
   "position": {
     "x": 20,
     "y": 442,
     "z": 4,
-    "width": 1240,
+    "width": 612,
     "height": 258,
     "tabOrder": 4
   },
   "visual": {
-    "visualType": "lineClusteredColumnComboChart",
+    "visualType": "lineChart",
     "query": {
       "queryState": {
         "Category": {
@@ -48,24 +48,6 @@
               "nativeQueryRef": "% Défaites au Temps"
             }
           ]
-        },
-        "Y2": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Mesures"
-                    }
-                  },
-                  "Property": "Score Moyen Blancs"
-                }
-              },
-              "queryRef": "_Mesures.Score Moyen Blancs",
-              "nativeQueryRef": "Score Moyen Blancs"
-            }
-          ]
         }
       },
       "sortDefinition": {
@@ -101,7 +83,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Score des Blancs et défaites au temps selon l''heure (UTC)'"
+                  "Value": "'Défaites au temps selon l''heure (UTC)'"
                 }
               }
             }

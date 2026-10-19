@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
-  "name": "comboTopOuvertures",
+  "name": "barTopOuvertures",
   "position": {
     "x": 20,
     "y": 96,
@@ -10,7 +10,7 @@
     "tabOrder": 4
   },
   "visual": {
-    "visualType": "lineClusteredColumnComboChart",
+    "visualType": "clusteredBarChart",
     "query": {
       "queryState": {
         "Category": {
@@ -74,24 +74,6 @@
               "nativeQueryRef": "Nb Parties Ouverture"
             }
           ]
-        },
-        "Y2": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Mesures"
-                    }
-                  },
-                  "Property": "Taux Victoire Ouverture"
-                }
-              },
-              "queryRef": "_Mesures.Taux Victoire Ouverture",
-              "nativeQueryRef": "Taux Victoire Ouverture"
-            }
-          ]
         }
       },
       "sortDefinition": {
@@ -127,7 +109,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top 10 des ouvertures : popularité et taux de victoire'"
+                  "Value": "'Top 10 des ouvertures les plus jouées'"
                 }
               }
             }
@@ -147,7 +129,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Colonnes : nombre de parties ; ligne : taux de victoire du camp choisi. Explorer : famille > variante'"
+                  "Value": "'Nombre de parties ; taux de victoire dans le tableau. Explorer : famille > variante'"
                 }
               }
             }
@@ -155,7 +137,22 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
   },
   "filterConfig": {
     "filters": [
