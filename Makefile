@@ -1,7 +1,7 @@
 # Each target delegates to run.py so that `make <target>` and `python run.py <target>` are identical.
 PYTHON ?= python
 
-.PHONY: ingest clean model analyze test all
+.PHONY: ingest clean model analyze export test all
 
 ingest:
 	$(PYTHON) run.py ingest
@@ -14,6 +14,9 @@ model:
 
 analyze:
 	$(PYTHON) run.py analyze
+
+export:
+	$(PYTHON) run.py export
 
 test:
 	$(PYTHON) run.py test

@@ -1,0 +1,37 @@
+{
+  "dim_date": {
+    "rows": 30,
+    "size_mb": 0.0,
+    "in_git": true
+  },
+  "dim_opening": {
+    "rows": 2905,
+    "size_mb": 0.31,
+    "in_git": true
+  },
+  "dim_time_control": {
+    "rows": 538,
+    "size_mb": 0.02,
+    "in_git": true
+  },
+  "dim_elo_band": {
+    "rows": 4,
+    "size_mb": 0.0,
+    "in_git": true
+  },
+  "fact_games": {
+    "rows": 1958145,
+    "size_mb": 201.96,
+    "in_git": false
+  },
+  "agg_opening_band_tc": {
+    "rows": 175850,
+    "size_mb": 6.72,
+    "in_git": true
+  },
+  "agg_time_used_band_tc": {
+    "rows": 10830,
+    "size_mb": 0.28,
+    "in_git": true
+  }
+}
