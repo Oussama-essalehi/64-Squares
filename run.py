@@ -29,6 +29,18 @@ def clean() -> None:
     step.run()
 
 
+def model() -> None:
+    from eloscope import model as step
+
+    step.run()
+
+
+def analyze() -> None:
+    from eloscope import analyze as step
+
+    step.run()
+
+
 def test() -> None:
     code = subprocess.call([sys.executable, "-m", "pytest", "-q"], cwd=ROOT)
     if code:
@@ -38,9 +50,11 @@ def test() -> None:
 TARGETS: dict[str, Callable[[], None]] = {
     "ingest": ingest,
     "clean": clean,
+    "model": model,
+    "analyze": analyze,
     "test": test,
 }
-PIPELINE = ["ingest", "clean"]
+PIPELINE = ["ingest", "clean", "model", "analyze"]
 
 
 def main() -> None:
