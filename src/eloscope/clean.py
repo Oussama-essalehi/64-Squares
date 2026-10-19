@@ -95,11 +95,22 @@ def expected_score(gap: Any) -> Any:
     return 1.0 / (1.0 + np.power(10.0, -np.asarray(gap, dtype=float) / 400.0))
 
 
+def event_speed(event: pd.Series) -> pd.Series:
+    """Speed word of the ``Event`` header (``"Rated Blitz game"`` -> ``"Blitz"``).
+
+    Arena games read ``Rated <Speed> tournament <url>``. Swiss games read ``<Speed> swiss <url>``
+    without the ``Rated`` prefix; they come from the *rated* monthly dump, so they are rated.
+    """
+    text = event.fillna("")
+    rated = text.str.extract(r"^Rated (\w+) (?:game|tournament|swiss)\b", expand=False)
+    swiss = text.str.extract(r"^(\w+) swiss\b", expand=False)
+    return rated.fillna(swiss)
+
+
 def is_rated_standard(event: pd.Series, variant: pd.Series) -> pd.Series:
     """Rated games of standard chess (no variant, no casual game)."""
-    speed = event.fillna("").str.extract(r"^Rated (\w+) ", expand=False)
     no_variant = variant.isna() | variant.fillna("").str.lower().eq("standard")
-    return speed.isin(STANDARD_SPEEDS).fillna(False) & no_variant
+    return event_speed(event).isin(STANDARD_SPEEDS).fillna(False) & no_variant
 
 
 def clock_features(
@@ -193,7 +204,7 @@ def add_derived_columns(df: pd.DataFrame, cfg: dict[str, Any], reference: pd.Dat
     out["tc_increment"] = tc.map(lambda t: t[1]).astype("int32")
     out["tc_estimated"] = out["tc_base"] + 40 * out["tc_increment"]
     out["tc_category"] = [categorize_time_control(b, i) for b, i in zip(out["tc_base"], out["tc_increment"])]
-    out["event_speed"] = out["event"].str.extract(r"^Rated (\w+) ", expand=False).str.lower()
+    out["event_speed"] = event_speed(out["event"]).str.lower()
 
     # Rule 7: Elo band and rating gap
     out["avg_elo"] = (out["white_elo"] + out["black_elo"]) / 2
