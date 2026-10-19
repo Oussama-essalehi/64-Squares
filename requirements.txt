@@ -18,3 +18,4 @@ jsonschema==4.26.0
 nbformat==5.11.1
 nbconvert==7.17.2
 ipykernel==7.4.0
+streamlit==1.50.0

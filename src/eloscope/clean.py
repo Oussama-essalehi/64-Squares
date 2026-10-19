@@ -25,6 +25,7 @@ log = logging.getLogger("eloscope.clean")
 
 VALID_RESULTS = {"1-0": 1.0, "0-1": 0.0, "1/2-1/2": 0.5}
 STANDARD_SPEEDS = ("UltraBullet", "Bullet", "Blitz", "Rapid", "Classical", "Correspondence")
+SPEED_NAMES = {name.lower(): name for name in STANDARD_SPEEDS} | {"chess960": "Chess960"}
 TC_ORDER = ["ultrabullet", "bullet", "blitz", "rapid", "classical"]
 WEEKDAYS_FR = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"]
 
@@ -96,15 +97,17 @@ def expected_score(gap: Any) -> Any:
 
 
 def event_speed(event: pd.Series) -> pd.Series:
-    """Speed word of the ``Event`` header (``"Rated Blitz game"`` -> ``"Blitz"``).
+    """Speed word of the ``Event`` header, capitalised (``"Rated Blitz game"`` -> ``"Blitz"``).
 
     Arena games read ``Rated <Speed> tournament <url>``. Swiss games read ``<Speed> swiss <url>``
     without the ``Rated`` prefix; they come from the *rated* monthly dump, so they are rated.
+    The Lichess API writes the same header in lower case (``"rated blitz game"``).
     """
-    text = event.fillna("")
-    rated = text.str.extract(r"^Rated (\w+) (?:game|tournament|swiss)\b", expand=False)
-    swiss = text.str.extract(r"^(\w+) swiss\b", expand=False)
-    return rated.fillna(swiss)
+    text = event.fillna("").astype(str)
+    rated = text.str.extract(r"(?i)^Rated (\w+) (?:game|tournament|swiss)\b", expand=False)
+    swiss = text.str.extract(r"(?i)^(\w+) swiss\b", expand=False)
+    speed = rated.where(rated.notna(), swiss)
+    return speed.str.lower().map(SPEED_NAMES)
 
 
 def is_rated_standard(event: pd.Series, variant: pd.Series) -> pd.Series:
@@ -126,7 +129,7 @@ def clock_features(
     berserk = clk_start.notna() & (base > 0) & (clk_start < 0.75 * base)
     eff_increment = increment.where(~berserk, 0)
     used = (clk_start + (moves - 1) * eff_increment - clk_10).clip(lower=0)
-    denominator = base.where(~berserk, base / 2).astype(float).where(base > 0)
+    denominator = base.astype(float).where(~berserk, base / 2).where(base > 0)
     share = (used / denominator).clip(upper=1.0)
     return pd.DataFrame({"time_used": used, "time_share": share, "berserk": berserk}, index=clk_start.index)
 

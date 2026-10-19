@@ -157,6 +157,14 @@ def test_rated_standard_filter() -> None:
     assert clean.is_rated_standard(event, variant).tolist() == [True, False, False, True, False]
 
 
+def test_lichess_api_event_format_is_accepted() -> None:
+    """The API writes ``"rated blitz game"`` in lower case and adds ``Variant "Standard"``."""
+    event = pd.Series(["rated blitz game", "rated bullet game", "casual blitz game", "rated crazyhouse game"])
+    variant = pd.Series(["Standard", "Standard", "Standard", "Crazyhouse"])
+    assert clean.is_rated_standard(event, variant).tolist() == [True, True, False, False]
+    assert clean.event_speed(event).tolist()[:2] == ["Blitz", "Bullet"]
+
+
 def test_time_forfeit_and_normal_are_kept(derived: pd.DataFrame) -> None:
     assert set(derived["termination"]) == {"Normal", "Time forfeit"}
 

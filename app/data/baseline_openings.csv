@@ -1,0 +1,431 @@
+elo_band,color,opening_family,games,score,score_vs_expected
+1200-1599,black,Alekhine Defense,3606,0.493067,-0.008055
+1200-1599,black,Benoni Defense,4811,0.495011,-0.007823
+1200-1599,black,Bird Opening,5580,0.484857,-0.014561
+1200-1599,black,Bishop's Opening,14250,0.470281,-0.025697
+1200-1599,black,Blackmar-Diemer Gambit,1711,0.51052,0.012503
+1200-1599,black,Caro-Kann Defense,33389,0.504792,0.001149
+1200-1599,black,Center Game,5243,0.48436,-0.015712
+1200-1599,black,Danish Gambit Accepted,1485,0.43771,-0.060365
+1200-1599,black,Dutch Defense,2700,0.484074,-0.015626
+1200-1599,black,Elephant Gambit,2082,0.493036,-0.006759
+1200-1599,black,English Defense,3409,0.48768,-0.012924
+1200-1599,black,English Opening,13966,0.468065,-0.026905
+1200-1599,black,Englund Gambit,9381,0.503038,0.00625
+1200-1599,black,Englund Gambit Declined,3683,0.497964,-0.002612
+1200-1599,black,Four Knights Game,9178,0.480551,-0.020806
+1200-1599,black,French Defense,37716,0.50122,-0.003244
+1200-1599,black,Grob Opening,1653,0.502117,0.004545
+1200-1599,black,Horwitz Defense,8123,0.472362,-0.025316
+1200-1599,black,Hungarian Opening,8789,0.479008,-0.01978
+1200-1599,black,Indian Defense,8656,0.486368,-0.017822
+1200-1599,black,Italian Game,32974,0.485504,-0.011429
+1200-1599,black,King's Gambit,1295,0.447876,-0.044896
+1200-1599,black,King's Gambit Accepted,4275,0.453684,-0.035752
+1200-1599,black,King's Gambit Declined,2919,0.471566,-0.019464
+1200-1599,black,King's Indian Attack,1238,0.495557,-0.001793
+1200-1599,black,King's Indian Defense,2532,0.487954,-0.006958
+1200-1599,black,King's Knight Opening,2556,0.472809,-0.020573
+1200-1599,black,King's Pawn Game,22293,0.482595,-0.01546
+1200-1599,black,London System,1020,0.510294,0.006943
+1200-1599,black,Mieses Opening,3781,0.497091,0.001559
+1200-1599,black,Modern Defense,12940,0.499227,-0.004387
+1200-1599,black,Nimzo-Larsen Attack,7864,0.470371,-0.02396
+1200-1599,black,Nimzowitsch Defense,7290,0.476475,-0.017071
+1200-1599,black,Old Indian Defense,1324,0.492447,-0.001879
+1200-1599,black,Owen Defense,8074,0.49486,-0.006833
+1200-1599,black,Petrov's Defense,9216,0.489909,-0.006254
+1200-1599,black,Philidor Defense,17255,0.483367,-0.014197
+1200-1599,black,Pirc Defense,11838,0.494087,-0.007643
+1200-1599,black,Polish Opening,2525,0.450495,-0.044788
+1200-1599,black,Ponziani Opening,3033,0.467854,-0.027792
+1200-1599,black,Queen's Gambit Accepted,5996,0.429036,-0.059954
+1200-1599,black,Queen's Gambit Declined,14532,0.452071,-0.042946
+1200-1599,black,Queen's Pawn Game,59265,0.475525,-0.022805
+1200-1599,black,Rapport-Jobava System,2660,0.466353,-0.034673
+1200-1599,black,Rat Defense,2649,0.499811,0.002075
+1200-1599,black,Ruy Lopez,12391,0.474861,-0.022331
+1200-1599,black,Saragossa Opening,1426,0.501052,0.003455
+1200-1599,black,Scandinavian Defense,35280,0.488435,-0.010779
+1200-1599,black,Scotch Game,16098,0.451888,-0.043991
+1200-1599,black,Semi-Slav Defense,1328,0.464232,-0.031082
+1200-1599,black,Sicilian Defense,47295,0.506692,0.000211
+1200-1599,black,Slav Defense,4682,0.467962,-0.030393
+1200-1599,black,Three Knights Opening,4720,0.490784,-0.010919
+1200-1599,black,Van Geet Opening,1842,0.507872,0.004035
+1200-1599,black,Van't Kruijs Opening,10723,0.504243,-0.000657
+1200-1599,black,Vienna Game,9134,0.465076,-0.032845
+1200-1599,black,Zukertort Opening,12367,0.49248,-0.007234
+1200-1599,white,Alekhine Defense,3606,0.506933,0.008055
+1200-1599,white,Benoni Defense,4811,0.504989,0.007823
+1200-1599,white,Bird Opening,5580,0.515143,0.014561
+1200-1599,white,Bishop's Opening,14250,0.529719,0.025697
+1200-1599,white,Blackmar-Diemer Gambit,1711,0.48948,-0.012503
+1200-1599,white,Caro-Kann Defense,33389,0.495208,-0.001149
+1200-1599,white,Center Game,5243,0.51564,0.015712
+1200-1599,white,Danish Gambit Accepted,1485,0.56229,0.060365
+1200-1599,white,Dutch Defense,2700,0.515926,0.015626
+1200-1599,white,Elephant Gambit,2082,0.506964,0.006759
+1200-1599,white,English Defense,3409,0.51232,0.012924
+1200-1599,white,English Opening,13966,0.531935,0.026905
+1200-1599,white,Englund Gambit,9381,0.496962,-0.00625
+1200-1599,white,Englund Gambit Declined,3683,0.502036,0.002612
+1200-1599,white,Four Knights Game,9178,0.519449,0.020806
+1200-1599,white,French Defense,37716,0.49878,0.003244
+1200-1599,white,Grob Opening,1653,0.497883,-0.004545
+1200-1599,white,Horwitz Defense,8123,0.527638,0.025316
+1200-1599,white,Hungarian Opening,8789,0.520992,0.01978
+1200-1599,white,Indian Defense,8656,0.513632,0.017822
+1200-1599,white,Italian Game,32974,0.514496,0.011429
+1200-1599,white,King's Gambit,1295,0.552124,0.044896
+1200-1599,white,King's Gambit Accepted,4275,0.546316,0.035752
+1200-1599,white,King's Gambit Declined,2919,0.528434,0.019464
+1200-1599,white,King's Indian Attack,1238,0.504443,0.001793
+1200-1599,white,King's Indian Defense,2532,0.512046,0.006958
+1200-1599,white,King's Knight Opening,2556,0.527191,0.020573
+1200-1599,white,King's Pawn Game,22293,0.517405,0.01546
+1200-1599,white,London System,1020,0.489706,-0.006943
+1200-1599,white,Mieses Opening,3781,0.502909,-0.001559
+1200-1599,white,Modern Defense,12940,0.500773,0.004387
+1200-1599,white,Nimzo-Larsen Attack,7864,0.529629,0.02396
+1200-1599,white,Nimzowitsch Defense,7290,0.523525,0.017071
+1200-1599,white,Old Indian Defense,1324,0.507553,0.001879
+1200-1599,white,Owen Defense,8074,0.50514,0.006833
+1200-1599,white,Petrov's Defense,9216,0.510091,0.006254
+1200-1599,white,Philidor Defense,17255,0.516633,0.014197
+1200-1599,white,Pirc Defense,11838,0.505913,0.007643
+1200-1599,white,Polish Opening,2525,0.549505,0.044788
+1200-1599,white,Ponziani Opening,3033,0.532146,0.027792
+1200-1599,white,Queen's Gambit Accepted,5996,0.570964,0.059954
+1200-1599,white,Queen's Gambit Declined,14532,0.547929,0.042946
+1200-1599,white,Queen's Pawn Game,59265,0.524475,0.022805
+1200-1599,white,Rapport-Jobava System,2660,0.533647,0.034673
+1200-1599,white,Rat Defense,2649,0.500189,-0.002075
+1200-1599,white,Ruy Lopez,12391,0.525139,0.022331
+1200-1599,white,Saragossa Opening,1426,0.498948,-0.003455
+1200-1599,white,Scandinavian Defense,35280,0.511565,0.010779
+1200-1599,white,Scotch Game,16098,0.548112,0.043991
+1200-1599,white,Semi-Slav Defense,1328,0.535768,0.031082
+1200-1599,white,Sicilian Defense,47295,0.493308,-0.000211
+1200-1599,white,Slav Defense,4682,0.532038,0.030393
+1200-1599,white,Three Knights Opening,4720,0.509216,0.010919
+1200-1599,white,Van Geet Opening,1842,0.492128,-0.004035
+1200-1599,white,Van't Kruijs Opening,10723,0.495757,0.000657
+1200-1599,white,Vienna Game,9134,0.534924,0.032845
+1200-1599,white,Zukertort Opening,12367,0.50752,0.007234
+1600-1999,black,Alekhine Defense,6460,0.502786,-0.008893
+1600-1999,black,Benoni Defense,10100,0.507277,-0.000927
+1600-1999,black,Bird Opening,9488,0.480449,-0.021425
+1600-1999,black,Bishop's Opening,9821,0.467519,-0.030175
+1600-1999,black,Blackmar-Diemer Gambit,2059,0.475231,-0.023795
+1600-1999,black,Blackmar-Diemer Gambit Accepted,1159,0.4478,-0.050069
+1600-1999,black,Caro-Kann Defense,44115,0.500465,-0.005451
+1600-1999,black,Center Game,3525,0.456738,-0.037432
+1600-1999,black,Danish Gambit Accepted,1571,0.430299,-0.06277
+1600-1999,black,Dutch Defense,5054,0.48704,-0.014038
+1600-1999,black,Elephant Gambit,2600,0.503077,0.004702
+1600-1999,black,English Defense,5020,0.491335,-0.003878
+1600-1999,black,English Opening,23992,0.473012,-0.022632
+1600-1999,black,Englund Gambit,9698,0.485409,-0.007723
+1600-1999,black,Englund Gambit Declined,3663,0.48362,-0.007171
+1600-1999,black,Four Knights Game,5876,0.480174,-0.023051
+1600-1999,black,French Defense,50728,0.498443,-0.00635
+1600-1999,black,Grob Opening,2354,0.485344,-0.015525
+1600-1999,black,Grünfeld Defense,1254,0.498006,-0.000942
+1600-1999,black,Horwitz Defense,10675,0.474145,-0.023821
+1600-1999,black,Hungarian Opening,12297,0.484793,-0.011512
+1600-1999,black,Indian Defense,15197,0.492235,-0.016278
+1600-1999,black,Italian Game,25115,0.483376,-0.012155
+1600-1999,black,King's Gambit,1517,0.441991,-0.041424
+1600-1999,black,King's Gambit Accepted,6024,0.466716,-0.02312
+1600-1999,black,King's Gambit Declined,4399,0.494885,0.00162
+1600-1999,black,King's Indian Attack,2333,0.457351,-0.027588
+1600-1999,black,King's Indian Defense,6462,0.482513,-0.016777
+1600-1999,black,King's Knight Opening,1174,0.485094,-0.015502
+1600-1999,black,King's Pawn Game,12927,0.481744,-0.014735
+1600-1999,black,London System,1341,0.468307,-0.040153
+1600-1999,black,Mieses Opening,5810,0.491738,-0.012796
+1600-1999,black,Modern Defense,18224,0.484224,-0.017569
+1600-1999,black,Nimzo-Indian Defense,2050,0.482439,-0.021577
+1600-1999,black,Nimzo-Larsen Attack,13049,0.476742,-0.022296
+1600-1999,black,Nimzowitsch Defense,7514,0.486292,-0.009547
+1600-1999,black,Old Indian Defense,2374,0.495577,-0.001479
+1600-1999,black,Owen Defense,10175,0.48855,-0.009392
+1600-1999,black,Petrov's Defense,6963,0.483556,-0.013718
+1600-1999,black,Philidor Defense,13958,0.471665,-0.018496
+1600-1999,black,Pirc Defense,14751,0.490882,-0.014445
+1600-1999,black,Polish Opening,3302,0.485009,-0.019223
+1600-1999,black,Ponziani Opening,2547,0.49627,-0.003294
+1600-1999,black,Queen's Gambit Accepted,5343,0.440857,-0.042742
+1600-1999,black,Queen's Gambit Declined,22845,0.457146,-0.032627
+1600-1999,black,Queen's Pawn Game,66088,0.475162,-0.023614
+1600-1999,black,Rapport-Jobava System,2924,0.444254,-0.062055
+1600-1999,black,Rat Defense,3905,0.481178,-0.012047
+1600-1999,black,Ruy Lopez,11108,0.46516,-0.025074
+1600-1999,black,Réti Opening,1141,0.436021,-0.053188
+1600-1999,black,Saragossa Opening,2240,0.496429,-0.008046
+1600-1999,black,Scandinavian Defense,41231,0.498508,-0.0021
+1600-1999,black,Scotch Game,13642,0.454332,-0.039396
+1600-1999,black,Semi-Slav Defense,3861,0.464387,-0.030908
+1600-1999,black,Sicilian Defense,82257,0.499933,-0.009058
+1600-1999,black,Slav Defense,9209,0.47649,-0.019553
+1600-1999,black,Three Knights Opening,3338,0.470941,-0.027333
+1600-1999,black,Trompowsky Attack,1253,0.478053,-0.030443
+1600-1999,black,Van Geet Opening,2656,0.476845,-0.024641
+1600-1999,black,Van't Kruijs Opening,11424,0.49396,-0.011708
+1600-1999,black,Vienna Game,8645,0.465356,-0.027108
+1600-1999,black,Zukertort Opening,16859,0.479951,-0.015285
+1600-1999,white,Alekhine Defense,6460,0.497214,0.008893
+1600-1999,white,Benoni Defense,10100,0.492723,0.000927
+1600-1999,white,Bird Opening,9488,0.519551,0.021425
+1600-1999,white,Bishop's Opening,9821,0.532481,0.030175
+1600-1999,white,Blackmar-Diemer Gambit,2059,0.524769,0.023795
+1600-1999,white,Blackmar-Diemer Gambit Accepted,1159,0.5522,0.050069
+1600-1999,white,Caro-Kann Defense,44115,0.499535,0.005451
+1600-1999,white,Center Game,3525,0.543262,0.037432
+1600-1999,white,Danish Gambit Accepted,1571,0.569701,0.06277
+1600-1999,white,Dutch Defense,5054,0.51296,0.014038
+1600-1999,white,Elephant Gambit,2600,0.496923,-0.004702
+1600-1999,white,English Defense,5020,0.508665,0.003878
+1600-1999,white,English Opening,23992,0.526988,0.022632
+1600-1999,white,Englund Gambit,9698,0.514591,0.007723
+1600-1999,white,Englund Gambit Declined,3663,0.51638,0.007171
+1600-1999,white,Four Knights Game,5876,0.519826,0.023051
+1600-1999,white,French Defense,50728,0.501557,0.00635
+1600-1999,white,Grob Opening,2354,0.514656,0.015525
+1600-1999,white,Grünfeld Defense,1254,0.501994,0.000942
+1600-1999,white,Horwitz Defense,10675,0.525855,0.023821
+1600-1999,white,Hungarian Opening,12297,0.515207,0.011512
+1600-1999,white,Indian Defense,15197,0.507765,0.016278
+1600-1999,white,Italian Game,25115,0.516624,0.012155
+1600-1999,white,King's Gambit,1517,0.558009,0.041424
+1600-1999,white,King's Gambit Accepted,6024,0.533284,0.02312
+1600-1999,white,King's Gambit Declined,4399,0.505115,-0.00162
+1600-1999,white,King's Indian Attack,2333,0.542649,0.027588
+1600-1999,white,King's Indian Defense,6462,0.517487,0.016777
+1600-1999,white,King's Knight Opening,1174,0.514906,0.015502
+1600-1999,white,King's Pawn Game,12927,0.518256,0.014735
+1600-1999,white,London System,1341,0.531693,0.040153
+1600-1999,white,Mieses Opening,5810,0.508262,0.012796
+1600-1999,white,Modern Defense,18224,0.515776,0.017569
+1600-1999,white,Nimzo-Indian Defense,2050,0.517561,0.021577
+1600-1999,white,Nimzo-Larsen Attack,13049,0.523258,0.022296
+1600-1999,white,Nimzowitsch Defense,7514,0.513708,0.009547
+1600-1999,white,Old Indian Defense,2374,0.504423,0.001479
+1600-1999,white,Owen Defense,10175,0.51145,0.009392
+1600-1999,white,Petrov's Defense,6963,0.516444,0.013718
+1600-1999,white,Philidor Defense,13958,0.528335,0.018496
+1600-1999,white,Pirc Defense,14751,0.509118,0.014445
+1600-1999,white,Polish Opening,3302,0.514991,0.019223
+1600-1999,white,Ponziani Opening,2547,0.50373,0.003294
+1600-1999,white,Queen's Gambit Accepted,5343,0.559143,0.042742
+1600-1999,white,Queen's Gambit Declined,22845,0.542854,0.032627
+1600-1999,white,Queen's Pawn Game,66088,0.524838,0.023614
+1600-1999,white,Rapport-Jobava System,2924,0.555746,0.062055
+1600-1999,white,Rat Defense,3905,0.518822,0.012047
+1600-1999,white,Ruy Lopez,11108,0.53484,0.025074
+1600-1999,white,Réti Opening,1141,0.563979,0.053188
+1600-1999,white,Saragossa Opening,2240,0.503571,0.008046
+1600-1999,white,Scandinavian Defense,41231,0.501492,0.0021
+1600-1999,white,Scotch Game,13642,0.545668,0.039396
+1600-1999,white,Semi-Slav Defense,3861,0.535613,0.030908
+1600-1999,white,Sicilian Defense,82257,0.500067,0.009058
+1600-1999,white,Slav Defense,9209,0.52351,0.019553
+1600-1999,white,Three Knights Opening,3338,0.529059,0.027333
+1600-1999,white,Trompowsky Attack,1253,0.521947,0.030443
+1600-1999,white,Van Geet Opening,2656,0.523155,0.024641
+1600-1999,white,Van't Kruijs Opening,11424,0.50604,0.011708
+1600-1999,white,Vienna Game,8645,0.534644,0.027108
+1600-1999,white,Zukertort Opening,16859,0.520049,0.015285
+2000+,black,Alekhine Defense,5188,0.492483,-0.013263
+2000+,black,Benoni Defense,8874,0.492055,-0.013621
+2000+,black,Bird Opening,4505,0.478912,-0.028799
+2000+,black,Bishop's Opening,1591,0.478944,-0.025847
+2000+,black,Caro-Kann Defense,22167,0.481594,-0.023399
+2000+,black,Catalan Opening,1120,0.458482,-0.026954
+2000+,black,Dutch Defense,2843,0.489975,-0.00682
+2000+,black,English Defense,2027,0.469413,-0.021795
+2000+,black,English Opening,16645,0.467468,-0.02751
+2000+,black,Englund Gambit,3081,0.47371,-0.015029
+2000+,black,Englund Gambit Declined,1376,0.489099,-0.007855
+2000+,black,Four Knights Game,1982,0.489657,-0.009261
+2000+,black,French Defense,23721,0.482779,-0.01761
+2000+,black,Grünfeld Defense,1340,0.490299,-0.016416
+2000+,black,Horwitz Defense,4516,0.472542,-0.020908
+2000+,black,Hungarian Opening,7694,0.474526,-0.018997
+2000+,black,Indian Defense,10540,0.471822,-0.035116
+2000+,black,Italian Game,6307,0.490804,-0.008248
+2000+,black,King's Gambit Accepted,1232,0.501623,-0.004746
+2000+,black,King's Gambit Declined,1057,0.520341,0.021687
+2000+,black,King's Indian Attack,3301,0.453045,-0.030504
+2000+,black,King's Indian Defense,6017,0.481885,-0.013301
+2000+,black,King's Pawn Game,2108,0.483871,-0.010196
+2000+,black,Mieses Opening,3798,0.492233,-0.00823
+2000+,black,Modern Defense,9091,0.489495,-0.014148
+2000+,black,Nimzo-Indian Defense,1851,0.481902,-0.032358
+2000+,black,Nimzo-Larsen Attack,10000,0.4709,-0.026477
+2000+,black,Nimzowitsch Defense,3161,0.517716,0.014598
+2000+,black,Old Indian Defense,1544,0.489961,-0.012134
+2000+,black,Owen Defense,3288,0.479927,-0.012793
+2000+,black,Petrov's Defense,2073,0.491799,-0.002459
+2000+,black,Philidor Defense,2697,0.506118,0.021887
+2000+,black,Pirc Defense,8031,0.482443,-0.023533
+2000+,black,Polish Opening,1327,0.499246,-0.010446
+2000+,black,Queen's Gambit Accepted,1713,0.479568,-0.007908
+2000+,black,Queen's Gambit Declined,10815,0.471151,-0.020962
+2000+,black,Queen's Pawn Game,27876,0.4694,-0.029819
+2000+,black,Rapport-Jobava System,1388,0.473343,-0.030173
+2000+,black,Rat Defense,1674,0.489546,-0.009502
+2000+,black,Ruy Lopez,4336,0.471633,-0.020455
+2000+,black,Réti Opening,1089,0.458678,-0.021371
+2000+,black,Saragossa Opening,1564,0.478581,-0.006195
+2000+,black,Scandinavian Defense,14790,0.494084,-0.002506
+2000+,black,Scotch Game,3085,0.483955,-0.014702
+2000+,black,Semi-Slav Defense,2815,0.470515,-0.024386
+2000+,black,Sicilian Defense,45631,0.490029,-0.016437
+2000+,black,Slav Defense,5856,0.453381,-0.039346
+2000+,black,Trompowsky Attack,1315,0.465779,-0.029097
+2000+,black,Van Geet Opening,2207,0.481423,-0.014808
+2000+,black,Van't Kruijs Opening,5862,0.5058,-0.008065
+2000+,black,Vienna Game,2644,0.469932,-0.025547
+2000+,black,Zukertort Opening,13138,0.46963,-0.020432
+2000+,white,Alekhine Defense,5188,0.507517,0.013263
+2000+,white,Benoni Defense,8874,0.507945,0.013621
+2000+,white,Bird Opening,4505,0.521088,0.028799
+2000+,white,Bishop's Opening,1591,0.521056,0.025847
+2000+,white,Caro-Kann Defense,22167,0.518406,0.023399
+2000+,white,Catalan Opening,1120,0.541518,0.026954
+2000+,white,Dutch Defense,2843,0.510025,0.00682
+2000+,white,English Defense,2027,0.530587,0.021795
+2000+,white,English Opening,16645,0.532532,0.02751
+2000+,white,Englund Gambit,3081,0.52629,0.015029
+2000+,white,Englund Gambit Declined,1376,0.510901,0.007855
+2000+,white,Four Knights Game,1982,0.510343,0.009261
+2000+,white,French Defense,23721,0.517221,0.01761
+2000+,white,Grünfeld Defense,1340,0.509701,0.016416
+2000+,white,Horwitz Defense,4516,0.527458,0.020908
+2000+,white,Hungarian Opening,7694,0.525474,0.018997
+2000+,white,Indian Defense,10540,0.528178,0.035116
+2000+,white,Italian Game,6307,0.509196,0.008248
+2000+,white,King's Gambit Accepted,1232,0.498377,0.004746
+2000+,white,King's Gambit Declined,1057,0.479659,-0.021687
+2000+,white,King's Indian Attack,3301,0.546955,0.030504
+2000+,white,King's Indian Defense,6017,0.518115,0.013301
+2000+,white,King's Pawn Game,2108,0.516129,0.010196
+2000+,white,Mieses Opening,3798,0.507767,0.00823
+2000+,white,Modern Defense,9091,0.510505,0.014148
+2000+,white,Nimzo-Indian Defense,1851,0.518098,0.032358
+2000+,white,Nimzo-Larsen Attack,10000,0.5291,0.026477
+2000+,white,Nimzowitsch Defense,3161,0.482284,-0.014598
+2000+,white,Old Indian Defense,1544,0.510039,0.012134
+2000+,white,Owen Defense,3288,0.520073,0.012793
+2000+,white,Petrov's Defense,2073,0.508201,0.002459
+2000+,white,Philidor Defense,2697,0.493882,-0.021887
+2000+,white,Pirc Defense,8031,0.517557,0.023533
+2000+,white,Polish Opening,1327,0.500754,0.010446
+2000+,white,Queen's Gambit Accepted,1713,0.520432,0.007908
+2000+,white,Queen's Gambit Declined,10815,0.528849,0.020962
+2000+,white,Queen's Pawn Game,27876,0.5306,0.029819
+2000+,white,Rapport-Jobava System,1388,0.526657,0.030173
+2000+,white,Rat Defense,1674,0.510454,0.009502
+2000+,white,Ruy Lopez,4336,0.528367,0.020455
+2000+,white,Réti Opening,1089,0.541322,0.021371
+2000+,white,Saragossa Opening,1564,0.521419,0.006195
+2000+,white,Scandinavian Defense,14790,0.505916,0.002506
+2000+,white,Scotch Game,3085,0.516045,0.014702
+2000+,white,Semi-Slav Defense,2815,0.529485,0.024386
+2000+,white,Sicilian Defense,45631,0.509971,0.016437
+2000+,white,Slav Defense,5856,0.546619,0.039346
+2000+,white,Trompowsky Attack,1315,0.534221,0.029097
+2000+,white,Van Geet Opening,2207,0.518577,0.014808
+2000+,white,Van't Kruijs Opening,5862,0.4942,0.008065
+2000+,white,Vienna Game,2644,0.530068,0.025547
+2000+,white,Zukertort Opening,13138,0.53037,0.020432
+< 1200,black,Alekhine Defense,2493,0.475732,-0.010165
+< 1200,black,Benoni Defense,1331,0.50263,-0.000212
+< 1200,black,Bird Opening,2042,0.489226,-0.009122
+< 1200,black,Bishop's Opening,8114,0.480158,-0.018243
+< 1200,black,Blackmar-Diemer Gambit,1116,0.517025,0.008407
+< 1200,black,Caro-Kann Defense,12249,0.505837,9.5e-05
+< 1200,black,Center Game,3746,0.48425,-0.015531
+< 1200,black,Elephant Gambit,1136,0.46963,-0.021403
+< 1200,black,English Opening,4269,0.481026,-0.016005
+< 1200,black,Englund Gambit,4236,0.491383,-0.007054
+< 1200,black,Englund Gambit Declined,1923,0.478679,-0.018374
+< 1200,black,Four Knights Game,7890,0.478961,-0.020276
+< 1200,black,French Defense,13723,0.495737,-0.007421
+< 1200,black,Horwitz Defense,3176,0.459855,-0.036557
+< 1200,black,Hungarian Opening,3094,0.48691,-0.016313
+< 1200,black,Indian Defense,2860,0.497378,-0.008189
+< 1200,black,Italian Game,16541,0.469923,-0.027464
+< 1200,black,King's Gambit Accepted,1284,0.458333,-0.033287
+< 1200,black,King's Knight Opening,2429,0.479004,-0.014204
+< 1200,black,King's Pawn Game,21238,0.49289,-0.006863
+< 1200,black,Mieses Opening,1718,0.510186,0.010215
+< 1200,black,Mikenas Defense,1127,0.466282,-0.020352
+< 1200,black,Modern Defense,3807,0.506042,0.002511
+< 1200,black,Nimzo-Larsen Attack,2240,0.492634,-0.007947
+< 1200,black,Nimzowitsch Defense,4731,0.450116,-0.040212
+< 1200,black,Owen Defense,2489,0.513459,0.007056
+< 1200,black,Petrov's Defense,6694,0.460039,-0.027442
+< 1200,black,Philidor Defense,8032,0.480578,-0.014477
+< 1200,black,Pirc Defense,5281,0.500852,-0.000727
+< 1200,black,Ponziani Opening,1482,0.480094,-0.02217
+< 1200,black,Queen's Gambit Accepted,2613,0.446039,-0.04391
+< 1200,black,Queen's Gambit Declined,4158,0.454786,-0.035964
+< 1200,black,Queen's Pawn Game,29257,0.477612,-0.022587
+< 1200,black,Rapport-Jobava System,1102,0.454174,-0.045451
+< 1200,black,Ruy Lopez,5163,0.466202,-0.02963
+< 1200,black,Scandinavian Defense,16986,0.483663,-0.014901
+< 1200,black,Scotch Game,6688,0.447443,-0.048072
+< 1200,black,Sicilian Defense,13039,0.516834,0.010918
+< 1200,black,Slav Defense,1244,0.457797,-0.040165
+< 1200,black,Three Knights Opening,3071,0.486161,-0.020809
+< 1200,black,Van Geet Opening,1322,0.507564,-0.009035
+< 1200,black,Van't Kruijs Opening,6056,0.510651,0.00507
+< 1200,black,Vienna Game,4681,0.467421,-0.029821
+< 1200,black,Zukertort Opening,6570,0.490791,-0.012733
+< 1200,white,Alekhine Defense,2493,0.524268,0.010165
+< 1200,white,Benoni Defense,1331,0.49737,0.000212
+< 1200,white,Bird Opening,2042,0.510774,0.009122
+< 1200,white,Bishop's Opening,8114,0.519842,0.018243
+< 1200,white,Blackmar-Diemer Gambit,1116,0.482975,-0.008407
+< 1200,white,Caro-Kann Defense,12249,0.494163,-9.5e-05
+< 1200,white,Center Game,3746,0.51575,0.015531
+< 1200,white,Elephant Gambit,1136,0.53037,0.021403
+< 1200,white,English Opening,4269,0.518974,0.016005
+< 1200,white,Englund Gambit,4236,0.508617,0.007054
+< 1200,white,Englund Gambit Declined,1923,0.521321,0.018374
+< 1200,white,Four Knights Game,7890,0.521039,0.020276
+< 1200,white,French Defense,13723,0.504263,0.007421
+< 1200,white,Horwitz Defense,3176,0.540145,0.036557
+< 1200,white,Hungarian Opening,3094,0.51309,0.016313
+< 1200,white,Indian Defense,2860,0.502622,0.008189
+< 1200,white,Italian Game,16541,0.530077,0.027464
+< 1200,white,King's Gambit Accepted,1284,0.541667,0.033287
+< 1200,white,King's Knight Opening,2429,0.520996,0.014204
+< 1200,white,King's Pawn Game,21238,0.50711,0.006863
+< 1200,white,Mieses Opening,1718,0.489814,-0.010215
+< 1200,white,Mikenas Defense,1127,0.533718,0.020352
+< 1200,white,Modern Defense,3807,0.493958,-0.002511
+< 1200,white,Nimzo-Larsen Attack,2240,0.507366,0.007947
+< 1200,white,Nimzowitsch Defense,4731,0.549884,0.040212
+< 1200,white,Owen Defense,2489,0.486541,-0.007056
+< 1200,white,Petrov's Defense,6694,0.539961,0.027442
+< 1200,white,Philidor Defense,8032,0.519422,0.014477
+< 1200,white,Pirc Defense,5281,0.499148,0.000727
+< 1200,white,Ponziani Opening,1482,0.519906,0.02217
+< 1200,white,Queen's Gambit Accepted,2613,0.553961,0.04391
+< 1200,white,Queen's Gambit Declined,4158,0.545214,0.035964
+< 1200,white,Queen's Pawn Game,29257,0.522388,0.022587
+< 1200,white,Rapport-Jobava System,1102,0.545826,0.045451
+< 1200,white,Ruy Lopez,5163,0.533798,0.02963
+< 1200,white,Scandinavian Defense,16986,0.516337,0.014901
+< 1200,white,Scotch Game,6688,0.552557,0.048072
+< 1200,white,Sicilian Defense,13039,0.483166,-0.010918
+< 1200,white,Slav Defense,1244,0.542203,0.040165
+< 1200,white,Three Knights Opening,3071,0.513839,0.020809
+< 1200,white,Van Geet Opening,1322,0.492436,0.009035
+< 1200,white,Van't Kruijs Opening,6056,0.489349,-0.00507
+< 1200,white,Vienna Game,4681,0.532579,0.029821
+< 1200,white,Zukertort Opening,6570,0.509209,0.012733
