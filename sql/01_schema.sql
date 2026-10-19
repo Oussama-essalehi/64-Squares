@@ -61,7 +61,7 @@ WITH o AS (
         opening                    AS full_name,
         ANY_VALUE(opening_family)  AS family,
         ANY_VALUE(opening_variation) AS variation,
-        BOOL_OR(opening_in_reference) AS in_reference
+        BOOL_OR(opening_in_reference::BOOLEAN) AS in_reference
     FROM stg_games
     GROUP BY eco, opening
 )

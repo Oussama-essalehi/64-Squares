@@ -47,7 +47,7 @@ SELECT
     (winner = 'white')::INTEGER AS win,
     (winner = 'draw')::INTEGER AS draw,
     (winner = 'black')::INTEGER AS loss,
-    (time_loser = 'white')::INTEGER AS lost_on_time,
+    COALESCE(time_loser = 'white', FALSE)::INTEGER AS lost_on_time,  -- time_loser is NULL if nobody flagged
     white_time_used_10 AS time_used_10,
     black_time_used_10 AS opponent_time_used_10
 FROM v_games
@@ -61,7 +61,7 @@ SELECT
     (winner = 'black')::INTEGER,
     (winner = 'draw')::INTEGER,
     (winner = 'white')::INTEGER,
-    (time_loser = 'black')::INTEGER,
+    COALESCE(time_loser = 'black', FALSE)::INTEGER,
     black_time_used_10,
     white_time_used_10
 FROM v_games;
