@@ -101,7 +101,8 @@ def outcome_counts(con: duckdb.DuckDBPyConnection, by: list[str], min_games: int
         """
     ).df()
     order = [c for c in by if c.endswith("_order")] + [c for c in by if not c.endswith("_order")]
-    return frame.sort_values(order).reset_index(drop=True)
+    # parallel aggregation sums floats in varying order: round away the last-digit noise
+    return frame.sort_values(order).reset_index(drop=True).round(10)
 
 
 def chi_square_by_band(con: duckdb.DuckDBPyConnection, min_games: int) -> pd.DataFrame:
@@ -129,6 +130,7 @@ def logistic_regression(con: duckdb.DuckDBPyConnection) -> tuple[pd.DataFrame, d
                white_time_used_10 * 10 AS white_used_10pts, black_time_used_10 * 10 AS black_used_10pts
         FROM v_games
         WHERE winner <> 'draw' AND white_time_used_10 IS NOT NULL AND black_time_used_10 IS NOT NULL
+        ORDER BY game_id  -- fixed row order: identical floating-point results on every run
         """
     ).df()
     formula = (
@@ -161,6 +163,7 @@ def logistic_regression(con: duckdb.DuckDBPyConnection) -> tuple[pd.DataFrame, d
         level = term.split("[T.")[-1].rstrip("]")
         return f"Cadence {level} (vs Blitz)" if "tc_label" in term else f"Elo {level} (vs 1600-1999)"
 
+    table = table.round(10)
     table["label"] = table["term"].map(label)
     info = {
         "n_games": int(result.nobs),
@@ -297,6 +300,7 @@ def build_metrics(
            FROM v_games"""
         )
         .df()
+        .round(10)
         .iloc[0]
         .to_dict()
     )

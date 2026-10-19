@@ -227,7 +227,8 @@ ORDER BY GROUPING(tc_label), MIN(tc_order), GROUPING(elo_band), MIN(elo_band_ord
 WITH p AS (
     SELECT
         tc_label, tc_order, score, win, loss, lost_on_time, player_gap, time_used_10,
-        NTILE(10) OVER (PARTITION BY tc_label ORDER BY time_used_10) AS decile
+        -- game_id and colour break ties so the deciles are reproducible
+        NTILE(10) OVER (PARTITION BY tc_label ORDER BY time_used_10, game_id, color) AS decile
     FROM v_player_games
     WHERE time_used_10 IS NOT NULL
 )
