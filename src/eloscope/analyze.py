@@ -26,7 +26,9 @@ from scipy.stats import chi2_contingency
 from statsmodels.stats.proportion import proportion_confint
 
 from eloscope import charts
+from eloscope.boards import family_roots, write_boards
 from eloscope.model import connect, load_named_queries
+from eloscope.openings import load_reference
 from eloscope.settings import PROJECT_ROOT, load_config, project_path, setup_logging
 
 log = logging.getLogger("eloscope.analyze")
@@ -271,6 +273,7 @@ def run(config: dict[str, Any] | None = None, figures: bool = True) -> dict[str,
     METRICS_PATH.write_text(json.dumps(metrics, indent=2, ensure_ascii=False, default=json_default), encoding="utf-8")
     con.close()
 
+    write_opening_boards(sql, cfg, fig_dir / "openings")
     if figures:
         _configure_browser()
         make_figures(sql, by_band, chi, logit, bands, fig_dir)
@@ -367,6 +370,18 @@ def build_metrics(
         "recommendations": sql["q6_best_openings_per_band"].to_dict("records"),
         "cross_check": checks.to_dict("records"),
     }
+
+
+def write_opening_boards(sql: dict[str, pd.DataFrame], cfg: dict[str, Any], out_dir: Path) -> list[Path]:
+    """Choosing side of every opening family, and board diagrams of the families shown in reports."""
+    roots = family_roots(load_reference(cfg))
+    roots.to_csv(TABLES_DIR / "opening_roots.csv", index=False)
+    shown = set(sql["q1_top_openings_by_band"]["opening_family"]) | set(
+        sql["q6_best_openings_per_band"]["opening_family"]
+    )
+    paths = write_boards(sorted(shown), roots, out_dir)
+    log.info("%d opening board diagrams written to %s", len(paths), out_dir)
+    return paths
 
 
 def make_figures(
