@@ -1,0 +1,18 @@
+opening_family,rank_lt_1200,rank_1200_1599,rank_1600_1999,rank_2000_plus,share_lt_1200,share_2000_plus
+Queen's Pawn Game,1,1,2,2,0.1073,0.0782
+King's Pawn Game,2,7,16,34,0.0779,0.0059
+Scandinavian Defense,3,4,5,6,0.0623,0.0415
+Italian Game,4,6,6,15,0.0607,0.0177
+French Defense,5,3,3,3,0.0503,0.0665
+Sicilian Defense,6,2,1,1,0.0478,0.1279
+Caro-Kann Defense,7,5,4,4,0.0449,0.0621
+Bishop's Opening,8,11,23,41,0.0298,0.0045
+Philidor Defense,9,8,13,31,0.0295,0.0076
+Four Knights Game,10,20,33,37,0.0289,0.0056
+Scotch Game,12,9,14,27,0.0245,0.0086
+Zukertort Opening,13,15,10,7,0.0241,0.0368
+English Opening,19,12,7,5,0.0157,0.0467
+Queen's Gambit Declined,21,10,8,8,0.0153,0.0303
+Modern Defense,22,13,9,11,0.014,0.0255
+Indian Defense,27,23,11,9,0.0105,0.0296
+Nimzo-Larsen Attack,32,26,15,10,0.0082,0.028

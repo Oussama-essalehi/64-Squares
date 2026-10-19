@@ -10,7 +10,8 @@ sampling:
   sample_size: 2000000                   # target number of sampled games (Bernoulli, expected value)
   seed: 42
   batch_size: 100000                     # sampled games per Parquet batch / checkpoint
-  read_size_mb: 16                       # compressed bytes read per network call
+  read_size_mb: 16                       # size of each HTTP range request (compressed MB)
+  download_workers: 4                    # parallel range requests
 
 cleaning:
   min_plies: 10
