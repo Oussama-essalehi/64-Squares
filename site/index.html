@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>64 Squares — Tableau de bord</title>
+  <meta name="description" content="Qu'est-ce qui fait vraiment gagner aux échecs ? 2 millions de parties Lichess analysées : classement, couleur, pendule, ouvertures.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%99%9F%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>64 Squares — qu'est-ce qui fait vraiment gagner aux échecs ?</h1>
+          <p id="subtitle">Parties classées Lichess, septembre 2026</p>
+        </div>
+      </div>
+      <div class="top-links">
+        <a class="btn primary" id="app-link" href="https://github.com/Oussama-essalehi/64-Squares/tree/main/app">♟ Analyse mes parties</a>
+        <a class="btn" href="https://github.com/Oussama-essalehi/64-Squares">Code &amp; méthode</a>
+        <button class="btn" id="theme-toggle" type="button" aria-label="Changer de thème">Thème : auto</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="tabs" role="tablist" aria-label="Pages du tableau de bord">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="p-overview" id="t-overview">Vue d'ensemble</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-openings" id="t-openings">Explorateur d'ouvertures</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-elo" id="t-elo">Elo &amp; gestion du temps</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p-activity" id="t-activity">Quand joue-t-on ?</button>
+    </nav>
+
+    <section class="filters" aria-label="Filtres">
+      <label>Cadence
+        <select id="f-tc"><option value="0">Toutes les cadences</option></select>
+      </label>
+      <label>Tranche Elo (moyenne des deux joueurs)
+        <select id="f-band"><option value="0">Toutes les tranches</option></select>
+      </label>
+      <label id="side-filter" hidden>Camp
+        <select id="f-side"><option value="white">Blancs</option><option value="black">Noirs</option></select>
+      </label>
+      <label>Minimum de parties par taux
+        <select id="f-min">
+          <option value="250">250</option><option value="500">500</option>
+          <option value="1000" selected>1 000</option><option value="5000">5 000</option>
+        </select>
+      </label>
+      <p class="note">Un taux n'est affiché que si le groupe compte au moins ce nombre de parties. Les filtres s'appliquent à toute la page.</p>
+    </section>
+
+    <!-- Page 1 -->
+    <section id="p-overview" role="tabpanel" aria-labelledby="t-overview">
+      <div class="kpis" id="kpis"></div>
+      <div class="findings" id="findings"></div>
+      <div class="grid">
+        <article class="card half" data-chart="results-band">
+          <div class="card-head"><div><h2>Répartition des résultats par niveau</h2><p class="subtitle">Victoires Blancs, nulles, victoires Noirs</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+        <article class="card half" data-chart="games-tc">
+          <div class="card-head"><div><h2>Parties par cadence</h2><p class="subtitle">Nombre de parties de l'échantillon</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+        <article class="card" data-chart="white-score">
+          <div class="card-head"><div><h2>Score des Blancs par niveau et cadence</h2><p class="subtitle">50 % = pas d'avantage · brun = avantage Blancs, bleu = avantage Noirs · vide = échantillon insuffisant</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Page 2 -->
+    <section id="p-openings" role="tabpanel" aria-labelledby="t-openings" hidden>
+      <div class="grid">
+        <article class="card two-thirds" data-chart="top-openings">
+          <div class="card-head"><div><h2>Les 10 familles d'ouvertures les plus jouées</h2><p class="subtitle">Part des parties de la sélection</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart tall"></div><div class="table-wrap" hidden></div>
+        </article>
+        <article class="card third">
+          <h2>Position de référence</h2>
+          <p class="subtitle">Clique sur une ligne du classement</p>
+          <div class="board-panel" id="board-panel"></div>
+        </article>
+        <article class="card" data-chart="opening-table">
+          <div class="card-head"><div><h2>Classement des familles (camp choisi)</h2><p class="subtitle">Score − attendu : performance corrigée de l'écart de classement · en gras : écart au-delà de la marge d'erreur à 95 %</p></div></div>
+          <div class="table-wrap" id="opening-table"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Page 3 -->
+    <section id="p-elo" role="tabpanel" aria-labelledby="t-elo" hidden>
+      <div class="grid">
+        <article class="card" data-chart="calibration">
+          <div class="card-head"><div><h2>Le classement prédit-il le résultat ?</h2><p class="subtitle">Score réel des Blancs vs formule Elo, par écart de classement (tranches de 50 points)</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+        <article class="card half" data-chart="clock-score">
+          <div class="card-head"><div><h2>Temps consommé sur 10 coups et score</h2><p class="subtitle">Part du temps de base utilisée sur les 10 premiers coups (tranches de 5 points)</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+        <article class="card half" data-chart="clock-flag">
+          <div class="card-head"><div><h2>Temps consommé sur 10 coups et défaites au temps</h2><p class="subtitle">Part des parties perdues au temps par le joueur</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+        <article class="card" data-chart="flag-band">
+          <div class="card-head"><div><h2>Défaites au temps par niveau</h2><p class="subtitle">Part des parties terminées par une chute du drapeau. Toutes cadences confondues, la hausse reflète surtout le fait que les forts joueurs jouent plus de bullet : choisir une cadence pour comparer à rythme égal.</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Page 4 -->
+    <section id="p-activity" role="tabpanel" aria-labelledby="t-activity" hidden>
+      <div class="grid">
+        <article class="card" data-chart="heatmap">
+          <div class="card-head"><div><h2>Parties par jour et heure (UTC)</h2><p class="subtitle">Nombre moyen de parties de l'échantillon par jour calendaire</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+        <article class="card half" data-chart="flag-hour">
+          <div class="card-head"><div><h2>Défaites au temps selon l'heure</h2><p class="subtitle">Heure UTC de début de partie</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+        <article class="card half" data-chart="score-hour">
+          <div class="card-head"><div><h2>Score des Blancs selon l'heure</h2><p class="subtitle">Axe de 45 % à 55 %</p></div><button class="toggle" type="button">Tableau</button></div>
+          <div class="chart"></div><div class="table-wrap" hidden></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    Source : base ouverte Lichess (CC0), échantillon aléatoire de septembre 2026, après nettoyage. Méthode, code et limites :
+    <a href="https://github.com/Oussama-essalehi/64-Squares">github.com/Oussama-essalehi/64-Squares</a>.
+    Réalisé par Oussama Essalehi — <a href="https://www.linkedin.com/in/oussama-essalehi">LinkedIn</a> ·
+    <a href="https://oussama-essalehi.dev">oussama-essalehi.dev</a>. Corrélation ≠ causalité.
+  </footer>
+</body>
+</html>
