@@ -73,7 +73,7 @@
     "lost_on_time": 0.3148765796199975,
     "has_clock": 1.0,
     "has_time_used": 0.9682658842935533,
-    "white_edge": 0.015664343967429998,
+    "white_edge": 0.015664343967429887,
     "families": 146,
     "first_day": "2026-09-01",
     "last_day": "2026-09-30"
@@ -88,8 +88,8 @@
       "draw_rate": 0.034195184055945085,
       "black_win_rate": 0.46742101536214975,
       "white_score": 0.5154813926098777,
-      "white_score_ci": 0.001843870503135451,
-      "expected_score": 0.5005573482448407
+      "white_score_ci": 0.001843870503135449,
+      "expected_score": 0.5005573482448401
     },
     {
       "elo_band": "1200-1599",
@@ -100,8 +100,8 @@
       "draw_rate": 0.03182878791680257,
       "black_win_rate": 0.46932617440683777,
       "white_score": 0.5147594316347609,
-      "white_score_ci": 0.0012465481714799822,
-      "expected_score": 0.5005330268876501
+      "white_score_ci": 0.0012465481714799803,
+      "expected_score": 0.5005330268876536
     },
     {
       "elo_band": "1600-1999",
@@ -112,8 +112,8 @@
       "draw_rate": 0.037840580959063945,
       "black_win_rate": 0.46568645555058563,
       "white_score": 0.5153932539698823,
-      "white_score_ci": 0.0011237178675110545,
-      "expected_score": 0.499853649343328
+      "white_score_ci": 0.001123717867511054,
+      "expected_score": 0.49985364934332177
     },
     {
       "elo_band": "2000+",
@@ -124,8 +124,8 @@
       "draw_rate": 0.04855749011691479,
       "black_win_rate": 0.4566237698713096,
       "white_score": 0.519097485070233,
-      "white_score_ci": 0.0015993792599055985,
-      "expected_score": 0.5002014623919223
+      "white_score_ci": 0.001599379259905605,
+      "expected_score": 0.5002014623919236
     }
   ],
   "results_by_tc": [
@@ -136,7 +136,7 @@
       "draw_rate": 0.01474942132744792,
       "black_win_rate": 0.48274748344727353,
       "white_score": 0.5098778058890026,
-      "white_score_ci": 0.007135711597064344
+      "white_score_ci": 0.007135711597064347
     },
     {
       "tc_label": "Bullet",
@@ -145,7 +145,7 @@
       "draw_rate": 0.027695950105576874,
       "black_win_rate": 0.4728966612391906,
       "white_score": 0.5132553637080209,
-      "white_score_ci": 0.0011585286784346661
+      "white_score_ci": 0.0011585286784346652
     },
     {
       "tc_label": "Blitz",
@@ -154,7 +154,7 @@
       "draw_rate": 0.042259827396461704,
       "black_win_rate": 0.4612129682067696,
       "white_score": 0.5176571180949996,
-      "white_score_ci": 0.0010090019229188115
+      "white_score_ci": 0.0010090019229188098
     },
     {
       "tc_label": "Rapide",
@@ -163,7 +163,7 @@
       "draw_rate": 0.04564975923633579,
       "black_win_rate": 0.46037462886682184,
       "white_score": 0.5168004915150103,
-      "white_score_ci": 0.0016645581164374784
+      "white_score_ci": 0.0016645581164374812
     },
     {
       "tc_label": "Classique",
@@ -172,7 +172,7 @@
       "draw_rate": 0.05062747120508854,
       "black_win_rate": 0.45521746604779095,
       "white_score": 0.5194687983496648,
-      "white_score_ci": 0.008846092642714092
+      "white_score_ci": 0.008846092642714094
     }
   ],
   "white_advantage": [
@@ -1811,42 +1811,42 @@
   ],
   "time_used_deciles": {
     "UltraBullet": {
-      "d1_score": 0.6597,
-      "d10_score": 0.2377,
-      "d1_lost_on_time": 0.2823,
-      "d10_lost_on_time": 0.7831,
+      "d1_score": 0.6567,
+      "d10_score": 0.2372,
+      "d1_lost_on_time": 0.2116,
+      "d10_lost_on_time": 0.7169,
       "d10_min_share": 0.4,
       "d1_max_share": 0.0667
     },
     "Bullet": {
-      "d1_score": 0.5504,
-      "d10_score": 0.3943,
-      "d1_lost_on_time": 0.37,
-      "d10_lost_on_time": 0.6564,
+      "d1_score": 0.5505,
+      "d10_score": 0.3945,
+      "d1_lost_on_time": 0.169,
+      "d10_lost_on_time": 0.4234,
       "d10_min_share": 0.2667,
       "d1_max_share": 0.0583
     },
     "Blitz": {
-      "d1_score": 0.5225,
-      "d10_score": 0.4364,
-      "d1_lost_on_time": 0.3815,
-      "d10_lost_on_time": 0.6701,
+      "d1_score": 0.5229,
+      "d10_score": 0.4362,
+      "d1_lost_on_time": 0.0703,
+      "d10_lost_on_time": 0.2141,
       "d10_min_share": 0.2333,
       "d1_max_share": 0.0444
     },
     "Rapide": {
-      "d1_score": 0.5198,
-      "d10_score": 0.4604,
-      "d1_lost_on_time": 0.4214,
-      "d10_lost_on_time": 0.6633,
+      "d1_score": 0.52,
+      "d10_score": 0.4605,
+      "d1_lost_on_time": 0.0306,
+      "d10_lost_on_time": 0.1122,
       "d10_min_share": 0.185,
       "d1_max_share": 0.0333
     },
     "Classique": {
       "d1_score": 0.5032,
       "d10_score": 0.4869,
-      "d1_lost_on_time": 0.5534,
-      "d10_lost_on_time": 0.6069,
+      "d1_lost_on_time": 0.0257,
+      "d10_lost_on_time": 0.0799,
       "d10_min_share": 0.155,
       "d1_max_share": 0.0173
     }
@@ -1854,16 +1854,16 @@
   "logit": {
     "info": {
       "n_games": 1815315,
-      "pseudo_r2": 0.03513239173846794,
+      "pseudo_r2": 0.03513239173846783,
       "white_win_share": 0.5144974839077515,
       "formula": "white_win ~ gap_100 + C(tc_label, Treatment('Blitz')) + C(elo_band, Treatment('1600-1999')) + white_used_10pts + black_used_10pts"
     },
     "terms": [
       {
         "term": "Intercept",
-        "coef": 0.06622664808836991,
-        "std_err": 0.003694508405632629,
-        "p_value": 7.430977998197203e-72,
+        "coef": 0.0662266480883699,
+        "std_err": 0.0036945084056326355,
+        "p_value": 7.430977998201229e-72,
         "odds_ratio": 1.068468856148517,
         "or_low": 1.0607599069977423,
         "or_high": 1.0762338291899167,
@@ -1871,9 +1871,9 @@
       },
       {
         "term": "C(tc_label, Treatment('Blitz'))[T.Bullet]",
-        "coef": -0.02136850326305613,
-        "std_err": 0.003553200412717847,
-        "p_value": 1.811401657319656e-09,
+        "coef": -0.02136850326305612,
+        "std_err": 0.003553200412717848,
+        "p_value": 1.8114016573196955e-09,
         "odds_ratio": 0.9788581856639539,
         "or_low": 0.9720649574505186,
         "or_high": 0.9856988880191182,
@@ -1881,19 +1881,19 @@
       },
       {
         "term": "C(tc_label, Treatment('Blitz'))[T.Classique]",
-        "coef": 0.01044253431609933,
-        "std_err": 0.020364414686007387,
-        "p_value": 0.6081028252035684,
+        "coef": 0.010442534316099341,
+        "std_err": 0.020364414686007415,
+        "p_value": 0.6081028252035685,
         "odds_ratio": 1.0104972478610814,
-        "or_low": 0.9709590495756063,
+        "or_low": 0.9709590495756062,
         "or_high": 1.0516454719497506,
         "label": "Cadence Classique (vs Blitz)"
       },
       {
         "term": "C(tc_label, Treatment('Blitz'))[T.Rapide]",
-        "coef": -0.0018846659674104913,
-        "std_err": 0.0044415422724965415,
-        "p_value": 0.6713274068230798,
+        "coef": -0.0018846659674104965,
+        "std_err": 0.0044415422724965355,
+        "p_value": 0.6713274068230786,
         "odds_ratio": 0.9981171089003078,
         "or_low": 0.9894659470248062,
         "or_high": 1.006843910166959,
@@ -1901,19 +1901,19 @@
       },
       {
         "term": "C(tc_label, Treatment('Blitz'))[T.UltraBullet]",
-        "coef": -0.0501056826692159,
-        "std_err": 0.017313790946286982,
-        "p_value": 0.003803981316727609,
-        "odds_ratio": 0.9511289013479671,
+        "coef": -0.05010568266921587,
+        "std_err": 0.017313790946287,
+        "p_value": 0.003803981316727667,
+        "odds_ratio": 0.9511289013479672,
         "or_low": 0.9193943974235184,
-        "or_high": 0.9839587771195286,
+        "or_high": 0.9839587771195287,
         "label": "Cadence UltraBullet (vs Blitz)"
       },
       {
         "term": "C(elo_band, Treatment('1600-1999'))[T.1200-1599]",
         "coef": -0.01299497784426441,
-        "std_err": 0.003751364084003411,
-        "p_value": 0.0005320732757828146,
+        "std_err": 0.0037513640840034115,
+        "p_value": 0.0005320732757828162,
         "odds_ratio": 0.9870890923229859,
         "or_low": 0.9798580974308313,
         "or_high": 0.9943734493165178,
@@ -1921,9 +1921,9 @@
       },
       {
         "term": "C(elo_band, Treatment('1600-1999'))[T.2000+]",
-        "coef": 0.019365533076118546,
-        "std_err": 0.0044209939527770845,
-        "p_value": 1.1848487242410785e-05,
+        "coef": 0.019365533076118553,
+        "std_err": 0.004420993952777081,
+        "p_value": 1.1848487242410519e-05,
         "odds_ratio": 1.019554261317535,
         "or_low": 1.0107579997278213,
         "or_high": 1.0284270735929475,
@@ -1931,8 +1931,8 @@
       },
       {
         "term": "C(elo_band, Treatment('1600-1999'))[T.< 1200]",
-        "coef": -0.02646679970340837,
-        "std_err": 0.005091422586636069,
+        "coef": -0.026466799703408362,
+        "std_err": 0.005091422586636067,
         "p_value": 2.0110710532046296e-07,
         "odds_ratio": 0.9738803764161482,
         "or_low": 0.9642103482426747,
@@ -1942,7 +1942,7 @@
       {
         "term": "gap_100",
         "coef": 0.36190301954615905,
-        "std_err": 0.0017945365887929352,
+        "std_err": 0.0017945365887929322,
         "p_value": 0.0,
         "odds_ratio": 1.4360596654888116,
         "or_low": 1.431017589801081,
@@ -1952,7 +1952,7 @@
       {
         "term": "white_used_10pts",
         "coef": -0.2954099466968721,
-        "std_err": 0.00204689310296966,
+        "std_err": 0.0020468931029697032,
         "p_value": 0.0,
         "odds_ratio": 0.7442264317539724,
         "or_low": 0.7412466978952355,
@@ -1962,11 +1962,11 @@
       {
         "term": "black_used_10pts",
         "coef": 0.28468752763316973,
-        "std_err": 0.001963345037265742,
+        "std_err": 0.001963345037265764,
         "p_value": 0.0,
         "odds_ratio": 1.3293465791447685,
         "or_low": 1.3242409694779558,
-        "or_high": 1.3344718734842884,
+        "or_high": 1.3344718734842886,
         "label": "Noirs : +10 pts de temps utilisé (10 coups)"
       }
     ]
