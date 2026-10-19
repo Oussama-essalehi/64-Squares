@@ -1,0 +1,66 @@
+{
+  "name": "EloScope - Échiquier",
+  "dataColors": ["#B58863", "#262421", "#6D8B3A", "#3C6E91", "#B33A3A", "#9E9A94", "#D9B88F", "#5C3B22"],
+  "background": "#FFFFFF",
+  "secondaryBackground": "#F0D9B5",
+  "foreground": "#262421",
+  "foregroundNeutralSecondary": "#6B655D",
+  "foregroundNeutralTertiary": "#9E9A94",
+  "backgroundLight": "#FBF6EE",
+  "backgroundNeutral": "#E9E4DC",
+  "tableAccent": "#B58863",
+  "good": "#6D8B3A",
+  "neutral": "#9E9A94",
+  "bad": "#B33A3A",
+  "maximum": "#5C3B22",
+  "center": "#F0D9B5",
+  "minimum": "#FBF6EE",
+  "null": "#E9E4DC",
+  "hyperlink": "#3C6E91",
+  "visitedHyperlink": "#5C3B22",
+  "textClasses": {
+    "callout": { "fontSize": 28, "fontFace": "Segoe UI Semibold", "color": "#262421" },
+    "title": { "fontSize": 13, "fontFace": "Segoe UI Semibold", "color": "#262421" },
+    "header": { "fontSize": 12, "fontFace": "Segoe UI Semibold", "color": "#262421" },
+    "label": { "fontSize": 10, "fontFace": "Segoe UI", "color": "#4A453F" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [{ "show": true, "fontColor": { "solid": { "color": "#262421" } }, "fontSize": 12, "alignment": "left" }],
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E9E4DC" } }, "radius": 6 }],
+        "dropShadow": [{ "show": false }],
+        "padding": [{ "top": 8, "bottom": 8, "left": 10, "right": 10 }]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F7F4EF" } }, "transparency": 0 }],
+        "outspace": [{ "color": { "solid": { "color": "#EFE9DF" } } }]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [{ "color": { "solid": { "color": "#5C3B22" } }, "fontSize": 26 }],
+        "categoryLabels": [{ "show": true, "color": { "solid": { "color": "#6B655D" } } }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FBF6EE" } }, "transparency": 0 }]
+      }
+    },
+    "pivotTable": {
+      "*": {
+        "columnHeaders": [{ "backColor": { "solid": { "color": "#F0D9B5" } }, "fontColor": { "solid": { "color": "#262421" } } }],
+        "rowHeaders": [{ "fontColor": { "solid": { "color": "#262421" } } }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "columnHeaders": [{ "backColor": { "solid": { "color": "#F0D9B5" } }, "fontColor": { "solid": { "color": "#262421" } } }]
+      }
+    }
+  }
+}

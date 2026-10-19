@@ -1,0 +1,148 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "tableClassement",
+  "position": {
+    "x": 776,
+    "y": 96,
+    "z": 5,
+    "width": 484,
+    "height": 330,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_opening"
+                    }
+                  },
+                  "Property": "family"
+                }
+              },
+              "queryRef": "dim_opening.family",
+              "nativeQueryRef": "family"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Mesures"
+                    }
+                  },
+                  "Property": "Rang Ouverture"
+                }
+              },
+              "queryRef": "_Mesures.Rang Ouverture",
+              "nativeQueryRef": "Rang Ouverture"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Mesures"
+                    }
+                  },
+                  "Property": "Nb Parties Ouverture"
+                }
+              },
+              "queryRef": "_Mesures.Nb Parties Ouverture",
+              "nativeQueryRef": "Nb Parties Ouverture"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Mesures"
+                    }
+                  },
+                  "Property": "% Popularité Ouverture"
+                }
+              },
+              "queryRef": "_Mesures.% Popularité Ouverture",
+              "nativeQueryRef": "% Popularité Ouverture"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Mesures"
+                    }
+                  },
+                  "Property": "Taux Victoire Ouverture"
+                }
+              },
+              "queryRef": "_Mesures.Taux Victoire Ouverture",
+              "nativeQueryRef": "Taux Victoire Ouverture"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Mesures"
+                    }
+                  },
+                  "Property": "Score vs Attendu Ouverture"
+                }
+              },
+              "queryRef": "_Mesures.Score vs Attendu Ouverture",
+              "nativeQueryRef": "Score vs Attendu Ouverture"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Mesures"
+                  }
+                },
+                "Property": "Nb Parties Ouverture"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Classement des familles d''ouvertures'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
