@@ -38,7 +38,7 @@ lignes qui rapportent nettement plus que l'attendu à certains niveaux.
 - Les joueurs sont classés en déciles selon la part de leur temps de base utilisée sur leurs
   10 premiers coups (`q4_time_used_deciles.csv`). **En blitz, le décile le plus lent (≥ 23 % du
   temps) marque 43,6 % contre 52,3 % pour le plus rapide (≤ 4,4 %)**, et perd au temps
-  **21,4 % de ses parties contre 7,0 %** (×3). En bullet : 39,4 % contre 55,1 % de score,
+  **21,4 % de ses parties contre 7,1 %** (×3). En bullet : 39,4 % contre 55,1 % de score,
   42,3 % contre 16,9 % de défaites au temps. L'écart de classement moyen de ces déciles reste
   faible (−5,6 et −10,3 points), ce n'est donc pas un simple effet de niveau.
 - La régression le confirme à écart Elo et cadence égaux : **chaque tranche de 10 points de

@@ -36,7 +36,7 @@ nettoyage) — détail et sources de chaque chiffre dans [`reports/findings.md`]
   classé de 200 points marque **67,9 %** au lieu des **75,7 %** promis par la formule (−7,8 points).
 - **La pendule compte presque autant.** En blitz, les joueurs qui consomment plus de 23 % de leur
   temps sur les 10 premiers coups marquent **43,6 %** contre **52,3 %** pour les plus rapides, et
-  perdent au temps **3 fois plus souvent** (21,4 % contre 7,0 %). **31,5 %** de toutes les parties
+  perdent au temps **3 fois plus souvent** (21,4 % contre 7,1 %). **31,5 %** de toutes les parties
   se terminent au temps (61 % en bullet sous 1200).
 - **L'avantage des Blancs est petit mais constant** : **51,6 %** de score, soit +1,6 point au-delà
   de ce que prédit le classement, de 51,5 % sous 1200 à 51,9 % à 2000+ (maximum : 52,3 % en blitz
