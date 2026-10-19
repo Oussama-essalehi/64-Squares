@@ -23,12 +23,14 @@ import argparse
 import hashlib
 import json
 import logging
+import multiprocessing
+import os
 import re
 import threading
 import time
 from collections import deque
 from collections.abc import Iterable, Iterator
-from concurrent.futures import Future, ThreadPoolExecutor
+from concurrent.futures import Future, ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from itertools import islice
 from pathlib import Path
@@ -416,23 +418,33 @@ def sample_stream(
     return state
 
 
-def parse_raw_cache(raw_dir: Path, sample_dir: Path, salt: str, opening_moves: int = 10) -> int:
-    """Rebuild missing Parquet batches from the cached raw sample (no network)."""
-    rebuilt = 0
-    for raw_path in sorted(raw_dir.glob("batch_*.pgn.zst")):
-        out = sample_dir / raw_path.name.replace(".pgn.zst", ".parquet")
-        if out.exists():
-            continue
-        with open(raw_path, "rb") as fh:
-            games = split_pgn(zstandard.ZstdDecompressor().stream_reader(fh, read_across_frames=True).read())
-        indices = np.load(raw_index_path(raw_path))
-        if len(indices) != len(games):
-            raise RuntimeError(f"{raw_path.name}: {len(games)} games but {len(indices)} indices")
-        records = [parse_game(game, salt, int(i), opening_moves) for game, i in zip(games, indices)]
-        write_batch(records, out)
-        rebuilt += 1
-        log.info("rebuilt %s from the raw cache (%s games)", out.name, f"{len(records):,}")
-    return rebuilt
+def _rebuild_batch(raw_path: Path, out: Path, salt: str, opening_moves: int) -> int:
+    """Parse one cached raw batch into its Parquet file; returns the number of games."""
+    with open(raw_path, "rb") as fh:
+        games = split_pgn(zstandard.ZstdDecompressor().stream_reader(fh, read_across_frames=True).read())
+    indices = np.load(raw_index_path(raw_path))
+    if len(indices) != len(games):
+        raise RuntimeError(f"{raw_path.name}: {len(games)} games but {len(indices)} indices")
+    records = [parse_game(game, salt, int(i), opening_moves) for game, i in zip(games, indices)]
+    write_batch(records, out)
+    return len(records)
+
+
+def parse_raw_cache(raw_dir: Path, sample_dir: Path, salt: str, opening_moves: int = 10, workers: int = 0) -> int:
+    """Rebuild missing Parquet batches from the cached raw sample (no network), in parallel."""
+    todo = [
+        (raw_path, sample_dir / raw_path.name.replace(".pgn.zst", ".parquet"))
+        for raw_path in sorted(raw_dir.glob("batch_*.pgn.zst"))
+    ]
+    todo = [(raw, out) for raw, out in todo if not out.exists()]
+    if not todo:
+        return 0
+    workers = workers or max(1, min(len(todo), (os.cpu_count() or 2)))
+    with ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("spawn")) as pool:
+        futures = {pool.submit(_rebuild_batch, raw, out, salt, opening_moves): out for raw, out in todo}
+        for future in tqdm(as_completed(futures), total=len(futures), desc="parse cache", unit="batch"):
+            log.info("rebuilt %s from the raw cache (%s games)", futures[future].name, f"{future.result():,}")
+    return len(todo)
 
 
 def run(config: dict[str, Any] | None = None) -> IngestState:
