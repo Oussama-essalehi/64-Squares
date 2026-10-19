@@ -1,0 +1,160 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "matrixScoreTranche",
+  "position": {
+    "x": 20,
+    "y": 442,
+    "z": 6,
+    "width": 1240,
+    "height": 258,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_opening"
+                        }
+                      },
+                      "Hierarchy": "Ouverture"
+                    }
+                  },
+                  "Level": "Famille"
+                }
+              },
+              "queryRef": "dim_opening.Ouverture.Famille",
+              "nativeQueryRef": "Famille",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "dim_opening"
+                        }
+                      },
+                      "Hierarchy": "Ouverture"
+                    }
+                  },
+                  "Level": "Nom complet"
+                }
+              },
+              "queryRef": "dim_opening.Ouverture.Nom complet",
+              "nativeQueryRef": "Nom complet",
+              "active": false
+            }
+          ]
+        },
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_elo_band"
+                    }
+                  },
+                  "Property": "elo_band"
+                }
+              },
+              "queryRef": "dim_elo_band.elo_band",
+              "nativeQueryRef": "elo_band"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Mesures"
+                    }
+                  },
+                  "Property": "Score Blancs Ouverture"
+                }
+              },
+              "queryRef": "_Mesures.Score Blancs Ouverture",
+              "nativeQueryRef": "Score Blancs Ouverture"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Mesures"
+                  }
+                },
+                "Property": "Score Blancs Ouverture"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Score des Blancs par ouverture et tranche Elo'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Vide = moins de parties que le minimum requis'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

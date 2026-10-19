@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "colPartiesCadence",
+  "position": {
+    "x": 436,
+    "y": 222,
+    "z": 9,
+    "width": 824,
+    "height": 230,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_time_control"
+                    }
+                  },
+                  "Property": "category_label"
+                }
+              },
+              "queryRef": "dim_time_control.category_label",
+              "nativeQueryRef": "category_label"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_elo_band"
+                    }
+                  },
+                  "Property": "elo_band"
+                }
+              },
+              "queryRef": "dim_elo_band.elo_band",
+              "nativeQueryRef": "elo_band"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Mesures"
+                    }
+                  },
+                  "Property": "Nb Parties"
+                }
+              },
+              "queryRef": "_Mesures.Nb Parties",
+              "nativeQueryRef": "Nb Parties"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Parties par cadence et tranche Elo'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "colDefaitesTemps",
+  "position": {
+    "x": 776,
+    "y": 96,
+    "z": 5,
+    "width": 484,
+    "height": 300,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_elo_band"
+                    }
+                  },
+                  "Property": "elo_band"
+                }
+              },
+              "queryRef": "dim_elo_band.elo_band",
+              "nativeQueryRef": "elo_band"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_time_control"
+                    }
+                  },
+                  "Property": "category_label"
+                }
+              },
+              "queryRef": "dim_time_control.category_label",
+              "nativeQueryRef": "category_label"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Mesures"
+                    }
+                  },
+                  "Property": "% Défaites au Temps"
+                }
+              },
+              "queryRef": "_Mesures.% Défaites au Temps",
+              "nativeQueryRef": "% Défaites au Temps"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Défaites au temps par tranche Elo et cadence'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

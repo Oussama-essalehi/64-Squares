@@ -1,0 +1,195 @@
+/// Table des mesures DAX (aucune donnée). Tous les taux renvoient BLANK sous le seuil 'Min Parties' (1 000 par défaut).
+table _Mesures
+
+	/// Seuil minimum de parties pour afficher un taux : valeur choisie dans le paramètre 'Min Parties' (1 000 par défaut).
+	measure 'Valeur Min Parties' = SELECTEDVALUE ( 'Min Parties'[Min Parties], 1000 )
+		formatString: #,0
+		displayFolder: 0. Paramètres
+
+	/// Nombre de parties dans le contexte de filtre courant (table de faits).
+	measure 'Nb Parties' = COUNTROWS ( fact_games )
+		formatString: #,0
+		displayFolder: 1. Volume
+
+	/// Nombre moyen de parties par jour calendaire : corrige le fait qu'un mois ne contient pas chaque jour de la semaine le même nombre de fois.
+	measure 'Parties par Jour' = DIVIDE ( [Nb Parties], COUNTROWS ( dim_date ) )
+		formatString: #,0
+		displayFolder: 1. Volume
+
+	/// Part des parties gagnées par les Blancs. BLANK si le groupe compte moins de parties que le seuil.
+	measure '% Victoires Blancs' =
+			VAR n = [Nb Parties]
+			RETURN
+			    IF (
+			        n < [Valeur Min Parties],
+			        BLANK (),
+			        DIVIDE ( CALCULATE ( COUNTROWS ( fact_games ), fact_games[winner] = "white" ), n )
+			    )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 2. Résultats
+
+	/// Part des parties nulles. BLANK sous le seuil d'échantillon.
+	measure '% Nulles' =
+			VAR n = [Nb Parties]
+			RETURN
+			    IF (
+			        n < [Valeur Min Parties],
+			        BLANK (),
+			        DIVIDE ( CALCULATE ( COUNTROWS ( fact_games ), fact_games[winner] = "draw" ), n )
+			    )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 2. Résultats
+
+	/// Part des parties gagnées par les Noirs. BLANK sous le seuil d'échantillon.
+	measure '% Victoires Noirs' =
+			VAR n = [Nb Parties]
+			RETURN
+			    IF (
+			        n < [Valeur Min Parties],
+			        BLANK (),
+			        DIVIDE ( CALCULATE ( COUNTROWS ( fact_games ), fact_games[winner] = "black" ), n )
+			    )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 2. Résultats
+
+	/// Score moyen des Blancs (victoire = 1, nulle = 0,5, défaite = 0). 50 % = aucun avantage.
+	measure 'Score Moyen Blancs' =
+			IF (
+			    [Nb Parties] < [Valeur Min Parties],
+			    BLANK (),
+			    AVERAGE ( fact_games[white_score] )
+			)
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 2. Résultats
+
+	/// Score moyen attendu des Blancs selon la formule Elo E = 1 / (1 + 10^(-écart/400)), calculé partie par partie.
+	measure 'Score Attendu Elo' =
+			IF (
+			    [Nb Parties] < [Valeur Min Parties],
+			    BLANK (),
+			    AVERAGE ( fact_games[expected_score] )
+			)
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 3. Elo
+
+	/// Score réel des Blancs moins score attendu Elo. Positif : les Blancs font mieux que ce que prédit le classement.
+	measure 'Écart Calibration' =
+			VAR actual = [Score Moyen Blancs]
+			VAR expected = [Score Attendu Elo]
+			RETURN
+			    IF ( ISBLANK ( actual ) || ISBLANK ( expected ), BLANK (), actual - expected )
+		formatString: +0.0 %;-0.0 %;0.0 %
+		displayFolder: 3. Elo
+
+	/// Part des parties terminées par une défaite au temps (chute du drapeau). BLANK sous le seuil.
+	measure '% Défaites au Temps' =
+			VAR n = [Nb Parties]
+			RETURN
+			    IF ( n < [Valeur Min Parties], BLANK (), DIVIDE ( SUM ( fact_games[lost_on_time] ), n ) )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 4. Gestion du temps
+
+	/// Nombre de parties-joueur (chaque partie compte une fois par couleur) ayant des données d'horloge sur 10 coups.
+	measure 'Nb Parties Joueur' = SUM ( agg_time_used_band_tc[player_games] )
+		formatString: #,0
+		displayFolder: 4. Gestion du temps
+
+	/// Score moyen du joueur selon la part de son temps de base utilisée sur les 10 premiers coups. BLANK sous le seuil.
+	measure 'Score Joueur' =
+			VAR n = [Nb Parties Joueur]
+			RETURN
+			    IF ( n < [Valeur Min Parties], BLANK (), DIVIDE ( SUM ( agg_time_used_band_tc[points] ), n ) )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 4. Gestion du temps
+
+	/// Part des parties-joueur perdues au temps selon le temps consommé dans l'ouverture. BLANK sous le seuil.
+	measure '% Perdues au Temps (Joueur)' =
+			VAR n = [Nb Parties Joueur]
+			RETURN
+			    IF ( n < [Valeur Min Parties], BLANK (), DIVIDE ( SUM ( agg_time_used_band_tc[lost_on_time] ), n ) )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 4. Gestion du temps
+
+	/// Nombre de parties jouées avec l'ouverture (table agrégée, chaque partie comptée une seule fois).
+	measure 'Nb Parties Ouverture' =
+			CALCULATE ( SUM ( agg_opening_band_tc[games] ), agg_opening_band_tc[color] = "Blancs" )
+		formatString: #,0
+		displayFolder: 5. Ouvertures
+
+	/// Part des parties de la sélection (tranche Elo, cadence) jouées avec l'ouverture.
+	measure '% Popularité Ouverture' =
+			DIVIDE (
+			    [Nb Parties Ouverture],
+			    CALCULATE ( [Nb Parties Ouverture], ALLSELECTED ( dim_opening ) )
+			)
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 5. Ouvertures
+
+	/// Rang de popularité (nombre de parties) de la famille d'ouverture, ou de la variante au sein de sa famille, dans la tranche Elo sélectionnée.
+	measure 'Rang Ouverture' =
+			SWITCH (
+			    TRUE (),
+			    ISINSCOPE ( dim_opening[full_name] ),
+			        RANKX ( ALLSELECTED ( dim_opening[full_name] ), [Nb Parties Ouverture], , DESC, DENSE ),
+			    ISINSCOPE ( dim_opening[family] ),
+			        RANKX ( ALLSELECTED ( dim_opening[family] ), [Nb Parties Ouverture], , DESC, DENSE )
+			)
+		formatString: 0
+		displayFolder: 5. Ouvertures
+
+	/// Taux de victoire du camp sélectionné (Blancs par défaut) avec l'ouverture. BLANK si moins de parties que le paramètre 'Min Parties'.
+	measure 'Taux Victoire Ouverture' =
+			VAR minGames = [Valeur Min Parties]
+			VAR side = SELECTEDVALUE ( agg_opening_band_tc[color], "Blancs" )
+			VAR games =
+			    CALCULATE ( SUM ( agg_opening_band_tc[games] ), agg_opening_band_tc[color] = side )
+			VAR wins =
+			    CALCULATE ( SUM ( agg_opening_band_tc[wins] ), agg_opening_band_tc[color] = side )
+			RETURN
+			    IF ( games < minGames, BLANK (), DIVIDE ( wins, games ) )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 5. Ouvertures
+
+	/// Score des Blancs avec l'ouverture (table agrégée). BLANK sous le seuil d'échantillon.
+	measure 'Score Blancs Ouverture' =
+			VAR games = [Nb Parties Ouverture]
+			VAR points =
+			    CALCULATE ( SUM ( agg_opening_band_tc[points] ), agg_opening_band_tc[color] = "Blancs" )
+			RETURN
+			    IF ( games < [Valeur Min Parties], BLANK (), DIVIDE ( points, games ) )
+		formatString: 0.0 %;-0.0 %;0.0 %
+		displayFolder: 5. Ouvertures
+
+	/// Score du camp sélectionné moins le score attendu Elo : performance de l'ouverture corrigée de l'écart de classement.
+	measure 'Score vs Attendu Ouverture' =
+			VAR side = SELECTEDVALUE ( agg_opening_band_tc[color], "Blancs" )
+			VAR games =
+			    CALCULATE ( SUM ( agg_opening_band_tc[games] ), agg_opening_band_tc[color] = side )
+			VAR points =
+			    CALCULATE ( SUM ( agg_opening_band_tc[points] ), agg_opening_band_tc[color] = side )
+			VAR expected =
+			    CALCULATE ( SUM ( agg_opening_band_tc[expected_points] ), agg_opening_band_tc[color] = side )
+			RETURN
+			    IF ( games < [Valeur Min Parties], BLANK (), DIVIDE ( points - expected, games ) )
+		formatString: +0.0 %;-0.0 %;0.0 %
+		displayFolder: 5. Ouvertures
+
+	column Valeur
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Valeur
+
+		annotation SummarizationSetBy = User
+
+	partition _Mesures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Valeur = Int64.Type], {})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+

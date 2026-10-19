@@ -1,0 +1,10 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
+  "pageOrder": [
+    "vue_ensemble",
+    "ouvertures",
+    "elo_temps",
+    "quand_joue_t_on"
+  ],
+  "activePageName": "vue_ensemble"
+}

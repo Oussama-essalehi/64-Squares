@@ -1,0 +1,36 @@
+relationship fact_games_dim_date
+	fromColumn: fact_games.date_key
+	toColumn: dim_date.date_key
+
+relationship fact_games_dim_opening
+	fromColumn: fact_games.opening_key
+	toColumn: dim_opening.opening_key
+
+relationship fact_games_dim_time_control
+	fromColumn: fact_games.time_control_key
+	toColumn: dim_time_control.time_control_key
+
+relationship fact_games_dim_elo_band
+	fromColumn: fact_games.elo_band_key
+	toColumn: dim_elo_band.elo_band_key
+
+relationship agg_opening_dim_opening
+	fromColumn: agg_opening_band_tc.opening_key
+	toColumn: dim_opening.opening_key
+
+relationship agg_opening_dim_time_control
+	fromColumn: agg_opening_band_tc.time_control_key
+	toColumn: dim_time_control.time_control_key
+
+relationship agg_opening_dim_elo_band
+	fromColumn: agg_opening_band_tc.elo_band_key
+	toColumn: dim_elo_band.elo_band_key
+
+relationship agg_time_used_dim_time_control
+	fromColumn: agg_time_used_band_tc.time_control_key
+	toColumn: dim_time_control.time_control_key
+
+relationship agg_time_used_dim_elo_band
+	fromColumn: agg_time_used_band_tc.elo_band_key
+	toColumn: dim_elo_band.elo_band_key
+

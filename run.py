@@ -1,7 +1,7 @@
 """Cross-platform task runner (equivalent of the Makefile, works on Windows).
 
 Usage: ``python run.py <target> [<target> ...]`` with targets
-ingest, clean, model, analyze, export, test, all.
+ingest, clean, model, analyze, export, test, all (= every step, then the tests).
 """
 
 from __future__ import annotations
@@ -41,6 +41,12 @@ def analyze() -> None:
     step.run()
 
 
+def export() -> None:
+    from eloscope import export_gold as step
+
+    step.run()
+
+
 def test() -> None:
     code = subprocess.call([sys.executable, "-m", "pytest", "-q"], cwd=ROOT)
     if code:
@@ -52,9 +58,10 @@ TARGETS: dict[str, Callable[[], None]] = {
     "clean": clean,
     "model": model,
     "analyze": analyze,
+    "export": export,
     "test": test,
 }
-PIPELINE = ["ingest", "clean", "model", "analyze"]
+PIPELINE = ["ingest", "clean", "model", "analyze", "export"]
 
 
 def main() -> None:

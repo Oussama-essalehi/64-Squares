@@ -1,0 +1,112 @@
+/// Agrégat ouverture × tranche Elo × cadence × couleur (point de vue du camp indiqué).
+table agg_opening_band_tc
+
+	column opening_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: opening_key
+
+		annotation SummarizationSetBy = User
+
+	column elo_band_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: elo_band_key
+
+		annotation SummarizationSetBy = User
+
+	column time_control_key
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: time_control_key
+
+		annotation SummarizationSetBy = User
+
+	column color
+		dataType: string
+		summarizeBy: none
+		sourceColumn: color
+
+		annotation SummarizationSetBy = User
+
+	column games
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: games
+
+		annotation SummarizationSetBy = User
+
+	column wins
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: wins
+
+		annotation SummarizationSetBy = User
+
+	column draws
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: draws
+
+		annotation SummarizationSetBy = User
+
+	column losses
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: losses
+
+		annotation SummarizationSetBy = User
+
+	column points
+		dataType: double
+		formatString: #,0.0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: points
+
+		annotation SummarizationSetBy = User
+
+	column expected_points
+		dataType: double
+		formatString: #,0.0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: expected_points
+
+		annotation SummarizationSetBy = User
+
+	column lost_on_time
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: sum
+		sourceColumn: lost_on_time
+
+		annotation SummarizationSetBy = User
+
+	partition agg_opening_band_tc = m
+		mode: import
+		source =
+				let
+				    Folder = if Text.EndsWith(DataFolder, "\") then DataFolder else DataFolder & "\",
+				    Source = Csv.Document(File.Contents(Folder & "agg_opening_band_tc.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"opening_key", Int64.Type}, {"elo_band_key", Int64.Type}, {"time_control_key", Int64.Type}, {"color", type text}, {"games", Int64.Type}, {"wins", Int64.Type}, {"draws", Int64.Type}, {"losses", Int64.Type}, {"points", type number}, {"expected_points", type number}, {"lost_on_time", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
