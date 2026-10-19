@@ -92,14 +92,16 @@ def mean_abs_calibration_error(buckets: pd.DataFrame) -> float:
 # --------------------------------------------------------------------------------------
 def outcome_counts(con: duckdb.DuckDBPyConnection, by: list[str], min_games: int) -> pd.DataFrame:
     cols = ", ".join(by)
-    return con.sql(
+    frame = con.sql(
         f"""
         SELECT {cols}, COUNT(*) AS n, SUM(white_win) AS white_wins, SUM(draw) AS draws,
                SUM(black_win) AS black_wins, AVG(white_score) AS white_score,
                STDDEV_SAMP(white_score) AS white_score_sd, AVG(expected_score) AS expected_score
-        FROM v_games GROUP BY ALL HAVING COUNT(*) >= {int(min_games)} ORDER BY ALL
+        FROM v_games GROUP BY ALL HAVING COUNT(*) >= {int(min_games)}
         """
     ).df()
+    order = [c for c in by if c.endswith("_order")] + [c for c in by if not c.endswith("_order")]
+    return frame.sort_values(order).reset_index(drop=True)
 
 
 def chi_square_by_band(con: duckdb.DuckDBPyConnection, min_games: int) -> pd.DataFrame:
@@ -353,8 +355,8 @@ def build_metrics(
         "time_losses": sql["q4_time_losses"].to_dict("records"),
         "time_used_deciles": decile_summary,
         "logit": {"info": logit_info, "terms": logit.to_dict("records")},
-        "activity_peak": sql["q5_activity_heatmap"].nlargest(3, "games").to_dict("records"),
-        "activity_low": sql["q5_activity_heatmap"].nsmallest(3, "games").to_dict("records"),
+        "activity_peak": sql["q5_activity_heatmap"].nlargest(3, "games_per_day").to_dict("records"),
+        "activity_low": sql["q5_activity_heatmap"].nsmallest(3, "games_per_day").to_dict("records"),
         "results_by_hour": sql["q5_results_by_hour"].to_dict("records"),
         "night_vs_day": sql["q5_night_vs_day"].to_dict("records"),
         "recommendations": sql["q6_best_openings_per_band"].to_dict("records"),

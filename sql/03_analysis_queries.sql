@@ -137,7 +137,7 @@ SELECT
 FROM v_games
 GROUP BY ROLLUP ((elo_band, elo_band_order), (tc_label, tc_order))
 HAVING COUNT(*) >= getvariable('min_games')
-ORDER BY MIN(elo_band_order) NULLS LAST, MIN(tc_order) NULLS LAST;
+ORDER BY GROUPING(elo_band), MIN(elo_band_order), GROUPING(tc_label), MIN(tc_order);
 
 
 -- name: q3_calibration
@@ -218,7 +218,7 @@ SELECT
 FROM v_games
 GROUP BY ROLLUP ((tc_label, tc_order), (elo_band, elo_band_order))
 HAVING COUNT(*) >= getvariable('min_games')
-ORDER BY MIN(tc_order) NULLS LAST, MIN(elo_band_order) NULLS LAST;
+ORDER BY GROUPING(tc_label), MIN(tc_order), GROUPING(elo_band), MIN(elo_band_order);
 
 
 -- name: q4_time_used_deciles
@@ -249,15 +249,25 @@ ORDER BY tc_order, decile;
 
 
 -- name: q5_activity_heatmap
--- Q5. Activity patterns: number of games by weekday and hour (UTC), share of all games.
+-- Q5. Activity patterns: average number of games per day, by weekday and hour (UTC).
+--     A month does not contain every weekday the same number of times (September 2026 has
+--     five Tuesdays and Wednesdays, four of the other days), so counts are divided by the
+--     number of calendar days of each weekday.
+WITH days AS (
+    SELECT weekday_num, COUNT(*) AS n_days FROM dim_date GROUP BY weekday_num
+),
+cells AS (
+    SELECT weekday_num, weekday_short, hour, COUNT(*) AS games
+    FROM v_games
+    GROUP BY weekday_num, weekday_short, hour
+)
 SELECT
-    weekday_num, weekday_short AS weekday, hour,
-    COUNT(*)                                          AS games,
-    ROUND(COUNT(*) / SUM(COUNT(*)) OVER (), 5)        AS share_of_games,
-    ROUND(COUNT(*) / AVG(COUNT(*)) OVER (), 3)        AS index_vs_average
-FROM v_games
-GROUP BY weekday_num, weekday_short, hour
-ORDER BY weekday_num, hour;
+    c.weekday_num, c.weekday_short AS weekday, c.hour, c.games, d.n_days,
+    ROUND(c.games / d.n_days, 1)                                     AS games_per_day,
+    ROUND((c.games / d.n_days) / AVG(c.games / d.n_days) OVER (), 3) AS index_vs_average
+FROM cells c
+JOIN days d USING (weekday_num)
+ORDER BY c.weekday_num, c.hour;
 
 
 -- name: q5_results_by_hour
@@ -318,6 +328,7 @@ WITH stats AS (
         COUNT(*)                     AS games,
         AVG(score)                   AS score,
         AVG(score - expected)        AS score_vs_expected,
+        1.96 * STDDEV_SAMP(score) / SQRT(COUNT(*)) AS score_ci95,
         AVG(win)                     AS win_rate
     FROM v_player_games
     GROUP BY elo_band, elo_band_order, color, opening_family
@@ -336,6 +347,7 @@ SELECT
     elo_band, color, rn AS recommendation_rank, opening_family, games, popularity_rank,
     ROUND(score, 4)               AS score,
     ROUND(score_vs_expected, 4)   AS score_vs_expected,
+    ROUND(score_ci95, 4)          AS score_ci95,
     ROUND(win_rate, 4)            AS win_rate
 FROM best
 WHERE rn <= 3
