@@ -1,8 +1,8 @@
 """Opening board diagrams and the side that "chooses" each opening family.
 
-For each family the reference dataset (``lichess-org/chess-openings``) gives one or more root
-lines (entries named exactly like the family). The shortest one is the position that defines the
-family: its last move tells who chose it (odd number of plies = White's move, even = Black's).
+The position that defines a family is its shortest root line in the reference dataset
+(``lichess-org/chess-openings``); its last move tells who chose the opening (odd number of plies =
+White's move, even = Black's), with a few hand-checked corrections (:data:`OVERRIDES`).
 """
 
 from __future__ import annotations
@@ -31,26 +31,42 @@ def slug(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", name.lower().replace("'", "")).strip("-")
 
 
+# Families whose shortest root line in the reference ends with a move of the *other* side, checked
+# by hand against the 90 families with at least 2,000 games in the sample.
+OVERRIDES: dict[str, tuple[str | None, str]] = {
+    "King's Indian Defense": ("1. d4 Nf6 2. c4 g6", "Noirs"),  # root ends 3.Nc3; 2...g6 defines it
+    "Old Indian Defense": ("1. d4 Nf6 2. c4 d6", "Noirs"),  # root ends 2.c4 after 1...d6
+    "Rat Defense": (None, "Noirs"),  # 1...d6 set-ups; the root line ends with White's 2.f4
+}
+
+
 def family_roots(reference: pd.DataFrame) -> pd.DataFrame:
-    """One defining line per family: ``family, eco, moves, n_plies, chosen_by, fen``."""
-    roots = reference[reference["name"] == reference["family"]].copy()
-    missing = reference[~reference["family"].isin(roots["family"])]
-    roots = pd.concat([roots, missing])  # families without a root entry: use their shortest line
-    roots = roots.sort_values(["family", "n_plies", "eco"]).drop_duplicates("family")
+    """One defining line per family: ``family, eco, moves, n_plies, chosen_by, fen``.
+
+    The defining line is the shortest entry named exactly like the family (its shortest line when
+    there is no such entry); the side that made its last move chose the opening. A few families
+    whose root line ends with a move of the other side are corrected in :data:`OVERRIDES`.
+    """
     rows = []
-    for _, r in roots.iterrows():
-        board = board_after(r["pgn"])
+    for family, group in reference.groupby("family", sort=True):
+        roots = group[group["name"] == family]
+        pool = roots if not roots.empty else group
+        first = pool.sort_values(["n_plies", "eco"]).iloc[0]
+        moves = first["pgn"]
+        override_moves, override_side = OVERRIDES.get(family, (None, None))
+        moves = override_moves or moves
+        plies = sum(1 for t in moves.split() if not t[0].isdigit())
         rows.append(
             {
-                "family": r["family"],
-                "eco": r["eco"],
-                "moves": r["pgn"],
-                "n_plies": int(r["n_plies"]),
-                "chosen_by": "Blancs" if int(r["n_plies"]) % 2 == 1 else "Noirs",
-                "fen": board.fen(),
+                "family": family,
+                "eco": first["eco"],
+                "moves": moves,
+                "n_plies": plies,
+                "chosen_by": override_side or ("Blancs" if plies % 2 == 1 else "Noirs"),
+                "fen": board_after(moves).fen(),
             }
         )
-    return pd.DataFrame(rows).reset_index(drop=True)
+    return pd.DataFrame(rows)
 
 
 def board_after(moves: str) -> chess.Board:
