@@ -1,0 +1,10 @@
+time_control,increment,games,lost_on_time_rate,draw_rate,avg_elo
+UltraBullet,sans incrément,18577,0.7792,0.0147,1726.0
+Bullet,sans incrément,538128,0.5525,0.0277,1827.0
+Bullet,avec incrément,157100,0.4044,0.0278,1585.0
+Blitz,sans incrément,625662,0.2414,0.0422,1632.0
+Blitz,avec incrément,276637,0.1991,0.0423,1558.0
+Rapide,sans incrément,254757,0.1072,0.0444,1483.0
+Rapide,avec incrément,75650,0.0924,0.0498,1422.0
+Classique,sans incrément,8498,0.0727,0.0477,1533.0
+Classique,avec incrément,3136,0.073,0.0587,1633.0

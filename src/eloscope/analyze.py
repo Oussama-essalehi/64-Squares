@@ -354,6 +354,7 @@ def build_metrics(
         "favourite_calibration": sql["q3_favourite_calibration"].to_dict("records"),
         "time_losses": sql["q4_time_losses"].to_dict("records"),
         "time_used_deciles": decile_summary,
+        "increment_effect": sql["q4_increment_effect"].to_dict("records"),
         "logit": {"info": logit_info, "terms": logit.to_dict("records")},
         "activity_peak": sql["q5_activity_heatmap"].nlargest(3, "games_per_day").to_dict("records"),
         "activity_low": sql["q5_activity_heatmap"].nsmallest(3, "games_per_day").to_dict("records"),

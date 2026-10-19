@@ -248,6 +248,22 @@ HAVING COUNT(*) >= getvariable('min_games')
 ORDER BY tc_order, decile;
 
 
+-- name: q4_increment_effect
+-- Q4. Does an increment protect against losses on time? Same category, with and without
+--     increment (e.g. 3+0 vs 3+2 are both blitz).
+SELECT
+    tc_label                                        AS time_control,
+    CASE WHEN increment_seconds > 0 THEN 'avec incrément' ELSE 'sans incrément' END AS increment,
+    COUNT(*)                                        AS games,
+    ROUND(AVG(lost_on_time::INTEGER), 4)            AS lost_on_time_rate,
+    ROUND(AVG(draw), 4)                             AS draw_rate,
+    ROUND(AVG(avg_elo), 0)                          AS avg_elo
+FROM v_games
+GROUP BY tc_label, tc_order, increment
+HAVING COUNT(*) >= getvariable('min_games')
+ORDER BY tc_order, increment DESC;
+
+
 -- name: q5_activity_heatmap
 -- Q5. Activity patterns: average number of games per day, by weekday and hour (UTC).
 --     A month does not contain every weekday the same number of times (September 2026 has
