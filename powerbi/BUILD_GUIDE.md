@@ -65,8 +65,12 @@ de parties que `[Valeur Min Parties]` (1 000 par défaut, modifiable avec le seg
 ## 3. Mise en forme commune
 
 - Thème : **Affichage > Thèmes > Parcourir les thèmes** > `powerbi/theme.json` si le thème
-  personnalisé n'est pas déjà appliqué (palette échiquier : brun `#B58863`, crème `#F0D9B5`,
-  noir `#262421`, vert `#6D8B3A`, bleu `#3C6E91`, rouge `#B33A3A`).
+  personnalisé n'est pas déjà appliqué. Habillage échiquier (fonds crème, en-têtes brun clair) ;
+  couleurs de données vérifiées pour le daltonisme : séries `#2a78d6`, `#eb6834`, `#1baf7a`,
+  `#eda100`, `#e87ba4` (dans cet ordre) ; Blancs `#c8732a`, nulle `#d3d1cb`, Noirs `#2a5a9a` ;
+  tranches Elo en dégradé brun `#d2a679` → `#5a3518` (voir `docs/design.md`).
+- Pour le graphique en anneau (page 1), fixer les couleurs : Victoires Blancs `#c8732a`, Nulles
+  `#d3d1cb`, Victoires Noirs `#2a5a9a` (Format > Tranches).
 - Taille de page : 1280 × 720, affichage « Ajuster à la page ».
 - Chaque visuel a un **titre** (Format > Général > Titre) ; les positions ci-dessous sont en
   pixels (x, y, largeur, hauteur).
@@ -94,7 +98,7 @@ de parties que `[Valeur Min Parties]` (1 000 par défaut, modifiable avec le seg
 | 1 | Segment | `dim_elo_band[elo_band]` | 20, 16, 300, 64 | « Tranche Elo » ; idéalement sélection unique |
 | 2 | Segment | `dim_time_control[category_label]` | 336, 16, 300, 64 | « Cadence » |
 | 3 | Segment | `agg_opening_band_tc[color]` | 652, 16, 300, 64 | « Camp (Blancs / Noirs) » ; sélection unique (sinon Blancs par défaut) |
-| 4 | Graphique en courbes et histogramme groupé | Axe X : hiérarchie `dim_opening[Ouverture]` (Famille, Nom complet) ; Axe Y colonnes : `[Nb Parties Ouverture]` ; Axe Y ligne : `[Taux Victoire Ouverture]` | 20, 96, 740, 330 | « Top 10 des ouvertures : popularité et taux de victoire » ; tri décroissant sur Nb Parties Ouverture ; **filtre du visuel : `Rang Ouverture` inférieur ou égal à 10** ; forage activé (flèche ↓ puis clic sur une famille pour voir ses variantes) |
+| 4 | Graphique à barres groupées | Axe Y : hiérarchie `dim_opening[Ouverture]` (Famille, Nom complet) ; Axe X : `[Nb Parties Ouverture]` | 20, 96, 740, 330 | « Top 10 des ouvertures les plus jouées » ; étiquettes de données ; tri décroissant sur Nb Parties Ouverture ; **filtre du visuel : `Rang Ouverture` inférieur ou égal à 10** ; forage activé (flèche ↓ puis clic sur une famille pour voir ses variantes). Les taux de victoire sont dans le tableau voisin : pas de graphique à double axe |
 | 5 | Table | `dim_opening[family]`, `[Rang Ouverture]`, `[Nb Parties Ouverture]`, `[% Popularité Ouverture]`, `[Taux Victoire Ouverture]`, `[Score vs Attendu Ouverture]` | 776, 96, 484, 330 | « Classement des familles d'ouvertures » ; tri décroissant sur Nb Parties Ouverture ; mise en forme conditionnelle (échelle de couleurs) sur Score vs Attendu Ouverture |
 | 6 | Matrice | Lignes : hiérarchie `dim_opening[Ouverture]` ; Colonnes : `dim_elo_band[elo_band]` ; Valeurs : `[Score Blancs Ouverture]` | 20, 442, 1240, 258 | « Score des Blancs par ouverture et tranche Elo » ; mise en forme conditionnelle > Couleur d'arrière-plan > Échelle de couleurs (min `#3C6E91`, centre 50 % `#F7F4EF`, max `#B58863`) ; les cellules vides = échantillon insuffisant |
 
@@ -116,7 +120,8 @@ de parties que `[Valeur Min Parties]` (1 000 par défaut, modifiable avec le seg
 | 1 | Segment | `dim_time_control[category_label]` | 20, 16, 300, 64 | « Cadence » |
 | 2 | Segment | `dim_elo_band[elo_band]` | 336, 16, 300, 64 | « Tranche Elo » |
 | 3 | Matrice (carte de chaleur) | Lignes : `dim_date[weekday_name]` ; Colonnes : `fact_games[hour]` ; Valeurs : `[Parties par Jour]` | 20, 96, 1240, 330 | « Carte de chaleur : parties par jour et heure (UTC) » ; mise en forme conditionnelle > Couleur d'arrière-plan > Échelle de couleurs (`#FBF6EE` → `#5C3B22`) ; taille de police 9 ; totaux désactivés |
-| 4 | Graphique en courbes et histogramme groupé | Axe X : `fact_games[hour]` ; Colonnes : `[% Défaites au Temps]` ; Ligne : `[Score Moyen Blancs]` | 20, 442, 1240, 258 | « Score des Blancs et défaites au temps selon l'heure (UTC) » ; tri croissant sur l'heure ; axe X de type *Catégoriel* |
+| 4 | Graphique en courbes | Axe X : `fact_games[hour]` ; Axe Y : `[% Défaites au Temps]` | 20, 442, 612, 258 | « Défaites au temps selon l'heure (UTC) » ; tri croissant sur l'heure ; axe X *Catégoriel* |
+| 5 | Graphique en courbes | Axe X : `fact_games[hour]` ; Axe Y : `[Score Moyen Blancs]` | 648, 442, 612, 258 | « Score des Blancs selon l'heure (UTC) » ; axe Y de 45 % à 55 % pour ne pas exagérer les variations ; deux graphiques séparés plutôt qu'un double axe |
 
 ## 8. Captures d'écran pour le README
 
