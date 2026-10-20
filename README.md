@@ -4,7 +4,7 @@
 Power BI, pour mesurer ce qui pèse vraiment sur le résultat : le classement, la couleur, la
 gestion de la pendule ou l'ouverture.**
 
-![Python](https://img.shields.io/badge/Python-3.11+-3776AB) ![DuckDB](https://img.shields.io/badge/DuckDB-SQL-FFF000)
+![Python](https://img.shields.io/badge/Python-3.12%E2%80%933.14-3776AB) ![DuckDB](https://img.shields.io/badge/DuckDB-SQL-FFF000)
 ![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20%2F%20TMDL-F2C811) ![Streamlit](https://img.shields.io/badge/App-Streamlit-FF4B4B) ![Tests](https://img.shields.io/badge/tests-142%20pass%C3%A9s-6D8B3A)
 
 ---
@@ -156,7 +156,7 @@ flowchart LR
 
 | Étape | Outils |
 |---|---|
-| Ingestion | Python 3.11+, `requests`, `zstandard`, `numpy`, `pyarrow`, `python-chess` (validation) |
+| Ingestion | Python 3.12 à 3.14 (testé en 3.13), `requests`, `zstandard`, `numpy`, `pyarrow`, `python-chess` (validation) |
 | Nettoyage | `pandas`, référentiel `lichess-org/chess-openings` |
 | Base analytique | **DuckDB** (SQL : CTE, fonctions de fenêtre, `GROUPING SETS` / `ROLLUP`) |
 | Statistiques | `scipy`, `statsmodels` |
@@ -184,6 +184,10 @@ flowchart LR
 ```
 
 ## 7. Lancer le projet
+
+Python **3.12 à 3.14** (testé en 3.13). Python 3.15 n'est pas encore pris en charge : `duckdb`,
+`zstandard` et `PyYAML` n'existent pas encore en version compilée pour lui. Sous Windows, choisir
+la version avec le lanceur : `py -3.13 -m venv .venv` (`py --list` affiche les versions installées).
 
 ```bash
 python -m venv .venv && source .venv/bin/activate   # Windows : .venv\Scripts\activate

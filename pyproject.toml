@@ -2,7 +2,7 @@
 name = "eloscope"
 version = "1.0.0"
 description = "What really makes chess players win? An analysis of Lichess games."
-requires-python = ">=3.11"
+requires-python = ">=3.12,<3.15"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
