@@ -30,7 +30,7 @@ streamlit run app/streamlit_app.py
 1. Se connecter sur <https://share.streamlit.io> avec le compte GitHub qui possède le dépôt.
 2. *Create app* → dépôt `Oussama-essalehi/64-Squares`, branche `main`, fichier
    `app/streamlit_app.py`.
-3. *Advanced settings* : Python 3.11 ou plus récent. Les dépendances sont lues dans
+3. *Advanced settings* : Python 3.13. Les dépendances sont lues dans
    `app/requirements.txt`, le thème dans `.streamlit/config.toml`.
 4. Déployer, puis copier l'URL publique dans le README principal (section « Essayer »).
 
