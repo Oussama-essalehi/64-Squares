@@ -1,6 +1,6 @@
 # Dependencies of the Streamlit app only (Streamlit Community Cloud reads this file).
 streamlit==1.50.0
-pandas==3.0.6
+pandas==2.3.3
 numpy==2.5.4
 plotly==7.1.0
 requests==2.34.2
