@@ -138,12 +138,12 @@ rated 1500–1600 is renamed, so it describes no real person. Nothing is stored.
 
 ## 8. Quality checks
 
-- 140 unit and integration tests (`pytest`): header and clock parsing, ply count vs
+- 142 unit and integration tests (`pytest`): header and clock parsing, ply count vs
   `python-chess`, chunk-independent splitting and sampling, resume after a crash, raw-cache
   rebuild, every cleaning rule on the fixture games, time-control edge values, Elo bands and
   gap buckets, opening families, statistical helpers, the star schema and every SQL query, the
   choosing side of openings, the personal analysis (API errors, PGN formats, noise-aware advice)
-  and the integrity of the web dashboard data.
+  and the web dashboard (data integrity, matching French and English texts).
 - **SQL vs Python cross-check** (`reports/tables/cross_check.csv`): White's score per Elo band
   recomputed in pandas from the Parquet file and the top-3 opening families of the `< 1200` and
   `2000+` bands — **6/6 identical** (e.g. White's score < 1200 = 0.515481 in both; top-3 2000+
