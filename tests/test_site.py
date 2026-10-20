@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 
 import pandas as pd
 import pytest
@@ -49,3 +50,30 @@ def test_every_family_has_a_board(payload: dict) -> None:
     for family, info in payload["openings"].items():
         assert (PROJECT_ROOT / "site" / "boards" / f"{info['board']}.svg").exists(), family
         assert info["chosen_by"] in {"Blancs", "Noirs"}
+
+
+SITE = PROJECT_ROOT / "site"
+
+
+@pytest.fixture(scope="module")
+def strings() -> dict:
+    source = (SITE / "i18n.js").read_text(encoding="utf-8")
+    start = source.index("const STRINGS = ") + len("const STRINGS = ")
+    return json.loads(source[start : source.index("\n};\n", start) + 2])
+
+
+def test_both_languages_have_the_same_texts(strings: dict) -> None:
+    assert set(strings) == {"fr", "en"}
+    assert strings["fr"].keys() == strings["en"].keys()
+    for key, text in strings["fr"].items():
+        assert set(re.findall(r"\{(\w+)\}", text)) == set(re.findall(r"\{(\w+)\}", strings["en"][key])), key
+        assert text.strip() and strings["en"][key].strip(), key
+
+
+def test_every_page_and_script_key_is_translated(strings: dict) -> None:
+    html = (SITE / "index.html").read_text(encoding="utf-8")
+    script = (SITE / "app.js").read_text(encoding="utf-8")
+    used = set(re.findall(r'data-i18n(?:-aria)?="([^"]+)"', html))
+    used |= set(re.findall(r'\bt\("([^"]+)"', script))
+    assert used, "no translated text found"
+    assert used <= strings["fr"].keys(), sorted(used - strings["fr"].keys())

@@ -126,7 +126,7 @@ Son ouverture, sa couleur, sa gestion du temps, ou simplement son classement ?</
 <li><b>Tableau de bord web</b> et <b>application « Analyse mes parties »</b> (API Lichess, conseils personnalisés).</li>
 </ul></div><div><h2>Rigueur</h2><ul>
 <li>Minimum de 1 000 parties pour tout taux affiché.</li>
-<li>140 tests automatisés ; recoupement SQL ↔ Python 6/6.</li>
+<li>142 tests automatisés ; recoupement SQL ↔ Python 6/6.</li>
 <li>Résultats identiques d'une exécution à l'autre.</li>
 <li>Palette vérifiée pour le daltonisme, aucun double axe.</li>
 <li>Aucun pseudo en clair, aucune donnée brute versionnée.</li>

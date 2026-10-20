@@ -5,7 +5,7 @@ Power BI, pour mesurer ce qui pèse vraiment sur le résultat : le classement, l
 gestion de la pendule ou l'ouverture.**
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB) ![DuckDB](https://img.shields.io/badge/DuckDB-SQL-FFF000)
-![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20%2F%20TMDL-F2C811) ![Streamlit](https://img.shields.io/badge/App-Streamlit-FF4B4B) ![Tests](https://img.shields.io/badge/tests-140%20pass%C3%A9s-6D8B3A)
+![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20%2F%20TMDL-F2C811) ![Streamlit](https://img.shields.io/badge/App-Streamlit-FF4B4B) ![Tests](https://img.shields.io/badge/tests-142%20pass%C3%A9s-6D8B3A)
 
 ---
 
@@ -13,7 +13,7 @@ gestion de la pendule ou l'ouverture.**
 
 | | |
 |---|---|
-| **Tableau de bord web** — 4 pages filtrables, sans rien installer | <https://oussama-essalehi.github.io/64-Squares/> *(en ligne dès l'activation de GitHub Pages)* |
+| **Tableau de bord web** — 4 pages filtrables, en français et en anglais, sans rien installer | <https://oussama-essalehi.github.io/64-Squares/> · [English version](https://oussama-essalehi.github.io/64-Squares/?lang=en) *(en ligne dès l'activation de GitHub Pages)* |
 | **Analyse mes parties** — compare tes parties Lichess avec 2 millions de parties | Application Streamlit : [lancer en local ou déployer](app/README.md) |
 | **Synthèse d'une page** (PDF) | [reports/64-squares-synthese.pdf](reports/64-squares-synthese.pdf) |
 | **Tableau de bord Power BI** | [`powerbi/EloScope.pbip`](powerbi/) |
@@ -129,7 +129,7 @@ Résumé ci-dessous, détail complet dans [`docs/methodology.md`](docs/methodolo
   groupe de moins de **1 000 parties** (paramétrable).
 - **Statistiques** : intervalles de Wilson à 95 %, khi² + V de Cramér, calibration Elo avec
   erreur absolue moyenne, régression logistique (statsmodels).
-- **Contrôles** : 140 tests automatisés ; recoupement SQL ↔ Python (score des Blancs par
+- **Contrôles** : 142 tests automatisés ; recoupement SQL ↔ Python (score des Blancs par
   tranche, top-3 des ouvertures) : **6/6 identiques**.
 
 ## 5. Architecture
@@ -163,7 +163,7 @@ flowchart LR
 | Visualisation | `plotly` + `kaleido` (PNG), notebook Jupyter |
 | BI | **Power BI Desktop** — projet `.pbip` : modèle TMDL, rapport PBIR, mesures DAX, thème personnalisé |
 | Applications | **Streamlit** + API Lichess (« Analyse mes parties ») ; site statique HTML/CSS/JS + Plotly.js publié par GitHub Actions sur GitHub Pages |
-| Qualité | `pytest` (140 tests), `ruff`, validation des schémas PBIR et du TMDL, palette vérifiée pour le daltonisme ([`docs/design.md`](docs/design.md)) |
+| Qualité | `pytest` (142 tests), `ruff`, validation des schémas PBIR et du TMDL, palette vérifiée pour le daltonisme ([`docs/design.md`](docs/design.md)) |
 
 ```
 64-Squares/

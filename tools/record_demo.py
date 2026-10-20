@@ -1,5 +1,8 @@
 """Record the README visuals: an animated tour of the web dashboard and a screenshot of the app.
 
+The tour opens on the intro pop-up, walks through the four pages in French, switches to dark mode
+and ends on the English version.
+
 Needs Playwright with a Chromium build, and both pages served locally:
 
     python -m http.server 8000 --directory site
@@ -36,7 +39,8 @@ def record_dashboard(page: Page) -> Path:
     page.wait_for_selector(".kpi .value")
     time.sleep(1.5)
     steps = [
-        (None, 2600),
+        (None, 4200),  # intro pop-up
+        (lambda: page.click("#intro [data-i18n='intro.start']"), 2600),
         (lambda: page.select_option("#f-tc", "3"), 1600),  # Blitz
         (lambda: page.select_option("#f-band", "4"), 2000),  # 2000+
         (lambda: page.click("#t-openings"), 2600),
@@ -48,6 +52,7 @@ def record_dashboard(page: Page) -> Path:
             2600,
         ),
         (lambda: page.click("#theme-toggle") or page.click("#theme-toggle"), 2400),  # auto -> light -> dark
+        (lambda: (page.click("#theme-toggle"), page.click("#t-overview"), page.click("#lang-toggle")), 3000),  # English
     ]
     frames, durations = [], []
     for action, hold in steps:
@@ -56,7 +61,7 @@ def record_dashboard(page: Page) -> Path:
             time.sleep(1.2)
         frames.append(grab(page))
         durations.append(hold)
-    page.click("#theme-toggle")  # back to auto for the next visitor of this profile
+    page.click("#lang-toggle")  # back to French for the app screenshot
     paletted = [f.quantize(colors=128, method=Image.Quantize.MEDIANCUT) for f in frames]
     out = FIGURES / "demo_dashboard.gif"
     paletted[0].save(out, save_all=True, append_images=paletted[1:], duration=durations, loop=0, optimize=True)
@@ -83,7 +88,7 @@ def main() -> None:
     args = parser.parse_args()
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=args.chromium, args=["--no-sandbox"])
-        page = browser.new_page(viewport={"width": 1366, "height": 860}, color_scheme="light")
+        page = browser.new_page(viewport={"width": 1366, "height": 860}, color_scheme="light", locale="fr-FR")
         for path in (record_dashboard(page), screenshot_app(page)):
             print(f"{path.relative_to(ROOT)}: {path.stat().st_size / 1e6:.2f} MB")
         browser.close()
